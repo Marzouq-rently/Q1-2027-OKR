@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Celestia · Style Sample</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cinzel+Decorative:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Zen+Maru+Gothic:wght@400;700&family=M+PLUS+Rounded+1c:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="common.css">
+  <script src="../fonts.js"></script>
+  <script src="common.js"></script>
+  <style>
+    body {
+      background: radial-gradient(ellipse at 50% 45%, #ffffff 0%, #fffaf0 35%, #f6ead0 70%, #e8d5ab 100%);
+    }
+    .rays {
+      position: fixed; left: 50%; top: 45%;
+      width: calc(2600px * var(--scale)); height: calc(2600px * var(--scale));
+      margin: calc(-1300px * var(--scale)) 0 0 calc(-1300px * var(--scale));
+      background: repeating-conic-gradient(rgba(214, 178, 100, 0.12) 0 2deg, transparent 2deg 10deg);
+      -webkit-mask: radial-gradient(circle, transparent 8%, #000 18%, transparent 55%);
+      mask: radial-gradient(circle, transparent 8%, #000 18%, transparent 55%);
+      animation: s-spin 160s linear infinite;
+    }
+    .halo {
+      position: fixed; left: 50%; top: 45%;
+      width: calc(var(--d) * var(--scale)); height: calc(var(--d) * var(--scale));
+      margin: calc(var(--d) * -0.5 * var(--scale)) 0 0 calc(var(--d) * -0.5 * var(--scale));
+      color: #c9a45c;
+      animation: s-spin var(--t) linear infinite var(--dir, normal), s-fade 2s ease-out both;
+    }
+    /* Floating islands that bob gently */
+    .island {
+      position: fixed; left: 50%; top: 50%;
+      width: calc(300px * var(--scale)); height: calc(220px * var(--scale));
+      color: #d9c08c;
+      animation: c-bob 7s ease-in-out infinite;
+    }
+    .island.l { transform: translate(calc(-1000px * var(--scale)), calc(-420px * var(--scale))); }
+    .island.r { width: calc(220px * var(--scale)); height: calc(160px * var(--scale)); transform: translate(calc(760px * var(--scale)), calc(-360px * var(--scale))); animation-delay: -3s; }
+    @keyframes c-bob { 50% { translate: 0 calc(-18px * var(--scale)); } }
+
+    /* ---------- Content ---------- */
+    .safe { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding-bottom: 40px; }
+    .kicker {
+      margin: 0;
+      font-family: var(--font-heading); font-weight: 700;
+      font-size: 30px; letter-spacing: 0.5em; margin-right: -0.5em; text-transform: uppercase;
+      color: #7a5a22;
+      animation: s-fade 1.2s 0.3s both;
+    }
+    .metal-wrap { animation: c-reveal 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) 0.5s both; }
+    @keyframes c-reveal { from { opacity: 0; filter: blur(16px); transform: scale(1.06); } to { opacity: 1; filter: blur(0); transform: none; } }
+    .metal {
+      margin: 16px 0 6px;
+      font-family: var(--font-heading); font-weight: 700;
+      font-size: 220px; line-height: 1;
+      background:
+        linear-gradient(100deg, transparent 40%, rgba(255, 255, 255, 0.95) 50%, transparent 60%) -150% 0 / 200% 100% no-repeat,
+        linear-gradient(180deg, #7d5a1e 0%, #c99a45 30%, #f8e9b8 50%, #c99a45 68%, #8a611d 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      filter: drop-shadow(0 2px 0 rgba(255, 255, 255, 0.9)) drop-shadow(0 8px 16px rgba(140, 100, 30, 0.35));
+      animation: c-sheen 6s ease-in-out 2.5s infinite;
+    }
+    @keyframes c-sheen {
+      0% { background-position: -150% 0, 0 0; }
+      40%, 100% { background-position: 250% 0, 0 0; }
+    }
+    .subtitle {
+      margin: 0 0 28px;
+      font-family: var(--font-heading); font-weight: 700;
+      font-size: 52px; letter-spacing: 0.08em; color: #4a3a1c;
+      animation: s-rise 1s cubic-bezier(0.2, 0.7, 0.2, 1) 1.1s both;
+    }
+    .divider { --div-color: #b8945a; animation: s-fade 1s 1.4s both; }
+    .team {
+      margin: 26px 0 0;
+      font-weight: 700; font-size: 34px; letter-spacing: 0.3em; margin-right: -0.3em;
+      color: #5a4520;
+      animation: s-fade 1s 1.6s both;
+    }
+    .pillars { display: flex; gap: 30px; margin-top: 70px; }
+    .pillar {
+      min-width: 300px;
+      padding: 22px 30px;
+      background: rgba(255, 255, 255, 0.75);
+      border: 2px solid #d6bb82;
+      border-radius: 999px;
+      box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.9), inset 0 0 0 5px rgba(214, 187, 130, 0.45), 0 12px 30px rgba(160, 120, 50, 0.15);
+      font-size: 26px; color: #4a3a1c;
+      animation: s-rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    }
+    .pillar b { font-weight: 700; color: #8a611d; margin-right: 10px; font-size: 30px; }
+    .pillar:nth-child(1) { animation-delay: 1.8s; }
+    .pillar:nth-child(2) { animation-delay: 1.95s; }
+    .pillar:nth-child(3) { animation-delay: 2.1s; }
+  </style>
+</head>
+<body>
+  <div class="bg">
+    <div class="rays"></div>
+    <svg class="halo" style="--d:1500px;--t:220s" viewBox="-100 -100 200 200" fill="none" stroke="currentColor" aria-hidden="true">
+      <circle r="98" stroke-width="0.3" opacity=".6"/>
+      <circle r="92" stroke-width="1.6" stroke-dasharray="0.6 3.2" opacity=".55"/>
+    </svg>
+    <svg class="halo" style="--d:1120px;--t:140s;--dir:reverse" viewBox="-100 -100 200 200" fill="none" stroke="currentColor" aria-hidden="true">
+      <circle r="97" stroke-width="0.6" opacity=".7"/>
+      <circle r="90" stroke-width="0.4" opacity=".5"/>
+      <g opacity=".7" stroke-width="0.6">
+        <path d="M0 -97 L4 -90 L0 -83 L-4 -90Z"/><path d="M0 97 L4 90 L0 83 L-4 90Z"/><path d="M-97 0 L-90 4 L-83 0 L-90 -4Z"/><path d="M97 0 L90 4 L83 0 L90 -4Z"/>
+      </g>
+    </svg>
+    <svg class="halo" style="--d:820px;--t:90s" viewBox="-100 -100 200 200" fill="none" stroke="currentColor" aria-hidden="true">
+      <circle r="96" stroke-width="0.8" stroke-dasharray="10 4 2 4" opacity=".45"/>
+      <path d="M0 -96 L83 48 L-83 48Z M0 96 L83 -48 L-83 -48Z" stroke-width="0.4" opacity=".18"/>
+    </svg>
+    <svg class="island l" viewBox="0 0 300 220" aria-hidden="true">
+      <path d="M20 90 Q150 70 280 90 L200 150 L160 215 L120 160 Z" fill="currentColor" opacity=".55"/>
+      <path d="M20 90 Q150 70 280 90 Q150 104 20 90Z" fill="#fff8e6"/>
+      <g fill="#f3e3bd"><rect x="120" y="30" width="18" height="58"/><rect x="160" y="10" width="22" height="78"/><path d="M160 10 l11 -14 l11 14z"/><rect x="200" y="50" width="14" height="38"/></g>
+    </svg>
+    <svg class="island r" viewBox="0 0 300 220" aria-hidden="true">
+      <path d="M30 90 Q150 72 270 90 L190 150 L150 210 L115 155 Z" fill="currentColor" opacity=".5"/>
+      <path d="M30 90 Q150 72 270 90 Q150 102 30 90Z" fill="#fff8e6"/>
+      <g fill="#f3e3bd"><rect x="135" y="36" width="20" height="54"/><path d="M135 36 l10 -16 l10 16z"/></g>
+    </svg>
+  </div>
+  <canvas class="fx" id="motes" aria-hidden="true"></canvas>
+
+  <main class="safe">
+    <p class="kicker">Celestia · Heavenly Principles</p>
+    <div class="metal-wrap"><h1 class="metal">Q1 2027</h1></div>
+    <p class="subtitle">OKR Presentation</p>
+    <div class="divider"><span class="line"></span><span class="gem"></span><span class="line"></span></div>
+    <p class="team">Protons Team</p>
+    <div class="pillars">
+      <div class="pillar"><b>3</b>Objectives</div>
+      <div class="pillar"><b>9</b>Key Results</div>
+      <div class="pillar"><b>13</b>Weeks</div>
+    </div>
+  </main>
+
+  <script>
+    // Rising golden light motes
+    const R = Sample.rand;
+    Sample.particles(document.getElementById("motes"), {
+      count: 50,
+      create(p, w, h, s, first) {
+        p.x = R(0, w); p.y = first ? R(0, h) : h + 10;
+        p.r = R(1.5, 4.5) * s; p.vy = R(12, 30); p.ph = R(0, 6.3);
+      },
+      step(p, dt, w, h, s, t) {
+        p.y -= p.vy * s * dt;
+        p.x += Math.sin(t * 0.7 + p.ph) * 12 * s * dt;
+        return p.y > -20;
+      },
+      draw(ctx, p, s, t) {
+        const a = 0.4 + 0.4 * (0.5 + 0.5 * Math.sin(t * 2 + p.ph));
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 3);
+        g.addColorStop(0, `rgba(255, 236, 180, ${a})`);
+        g.addColorStop(0.4, `rgba(214, 170, 80, ${a * 0.6})`);
+        g.addColorStop(1, "rgba(214, 170, 80, 0)");
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r * 3, 0, 6.3); ctx.fill();
+      },
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inazuma · Style Sample</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cinzel+Decorative:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Zen+Maru+Gothic:wght@400;700&family=M+PLUS+Rounded+1c:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="common.css">
+  <script src="../fonts.js"></script>
+  <script src="common.js"></script>
+  <style>
+    body {
+      background: linear-gradient(180deg, #120a26 0%, #2a1650 40%, #5a3184 72%, #8a55a8 86%, #2a1650 100%);
+    }
+    .moon {
+      position: fixed; left: 50%; top: 50%;
+      width: calc(220px * var(--scale)); height: calc(220px * var(--scale));
+      transform: translate(calc(200px * var(--scale)), calc(-470px * var(--scale)));
+      border-radius: 50%;
+      background: radial-gradient(circle at 40% 40%, #fbf3ff, #d9c3f2 60%, #b79be0);
+      box-shadow: 0 0 calc(80px * var(--scale)) rgba(220, 190, 255, 0.55);
+      opacity: 0.85;
+    }
+    /* Lightning: a full-window flash and a bolt, on a 9 s cycle */
+    .flash {
+      position: fixed; inset: 0;
+      background: radial-gradient(ellipse at 75% 10%, rgba(230, 210, 255, 0.9), rgba(160, 110, 255, 0.35) 45%, transparent 75%);
+      opacity: 0;
+      animation: i-flash 9s linear 2.5s infinite;
+    }
+    .bolt {
+      position: fixed; left: 50%; top: 0;
+      width: calc(220px * var(--scale)); height: calc(520px * var(--scale));
+      transform: translateX(calc(520px * var(--scale)));
+      opacity: 0;
+      filter: drop-shadow(0 0 calc(16px * var(--scale)) #c7a0ff);
+      animation: i-flash 9s linear 2.5s infinite;
+    }
+    @keyframes i-flash {
+      0%, 90% { opacity: 0; }
+      90.6% { opacity: 1; }
+      91.4% { opacity: 0.1; }
+      92.2% { opacity: 0.8; }
+      95% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    .band.hills { --band-h: 520px; }
+    .band.sea { --band-h: 190px; }
+    .shimmer line {
+      stroke: rgba(230, 200, 255, 0.55);
+      stroke-width: 3;
+      stroke-linecap: round;
+      animation: i-shimmer 4s ease-in-out infinite;
+    }
+    .shimmer line:nth-child(2n) { animation-delay: -1.3s; }
+    .shimmer line:nth-child(3n) { animation-delay: -2.6s; }
+    @keyframes i-shimmer { 0%, 100% { opacity: 0.15; transform: translateX(0); } 50% { opacity: 0.9; transform: translateX(30px); } }
+
+    /* ---------- Content ---------- */
+    .safe { padding: 120px 0 0 150px; }
+    .heading { width: 1060px; animation: s-drop 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s both; }
+    .kicker {
+      margin: 0;
+      font-family: var(--font-heading); font-weight: 700;
+      font-size: 28px; letter-spacing: 0.4em; text-transform: uppercase;
+      color: #d8b8ff;
+    }
+    h1 {
+      margin: 6px 0 16px;
+      font-family: var(--font-heading); font-weight: 700;
+      font-size: 110px; line-height: 1.05;
+      background: linear-gradient(180deg, #ffffff 0%, #ead7ff 40%, #e2c27f 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      filter: drop-shadow(0 0 26px rgba(190, 140, 255, 0.45));
+    }
+    .heading .divider { justify-content: flex-start; --div-color: #c9a2ff; }
+    .heading .divider .line:first-child { display: none; }
+    .heading .divider .line { width: 480px; }
+
+    .list { width: 1060px; margin-top: 60px; display: grid; gap: 26px; }
+    .item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 90px 1fr auto;
+      align-items: center;
+      gap: 30px;
+      padding: 30px 40px 30px 30px;
+      background: linear-gradient(90deg, rgba(36, 18, 70, 0.92), rgba(52, 26, 92, 0.82));
+      border: 1px solid rgba(201, 162, 255, 0.55);
+      border-left: 6px solid #b07cff;
+      border-radius: 4px 18px 18px 4px;
+      box-shadow: 0 18px 40px rgba(10, 0, 30, 0.45);
+      animation: i-slide 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+      overflow: hidden;
+    }
+    .item::after {
+      /* an electro glint that runs across each row now and then */
+      content: ""; position: absolute; top: 0; bottom: 0; width: 160px; left: -200px;
+      background: linear-gradient(100deg, transparent, rgba(210, 170, 255, 0.28), transparent);
+      animation: i-glint 6s ease-in-out infinite;
+    }
+    .item:nth-child(1) { animation-delay: 0.5s; } .item:nth-child(1)::after { animation-delay: 2s; }
+    .item:nth-child(2) { animation-delay: 0.7s; } .item:nth-child(2)::after { animation-delay: 2.3s; }
+    .item:nth-child(3) { animation-delay: 0.9s; } .item:nth-child(3)::after { animation-delay: 2.6s; }
+    @keyframes i-slide { from { opacity: 0; transform: translateX(-60px); } to { opacity: 1; transform: none; } }
+    @keyframes i-glint { 0% { left: -200px; } 30%, 100% { left: 110%; } }
+    .mark {
+      width: 78px; height: 78px;
+      display: grid; place-items: center;
+      transform: rotate(45deg);
+      border: 2px solid #e2c27f;
+      background: radial-gradient(circle, #6d3fb0, #2a1650);
+      box-shadow: 0 0 22px rgba(176, 124, 255, 0.6);
+    }
+    .mark span {
+      transform: rotate(-45deg);
+      font-weight: 700; font-size: 34px; color: #fff4d9;
+    }
+    .item h2 {
+      margin: 0 0 6px;
+      font-family: var(--font-heading); font-weight: 700;
+      font-size: 36px; color: #fff; line-height: 1.2;
+    }
+    .item p { margin: 0; font-size: 25px; color: #e3d6f5; line-height: 1.45; }
+    .tag {
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-weight: 700; font-size: 22px;
+      color: #1e0f3a;
+      background: #d6b8ff;
+      white-space: nowrap;
+    }
+    .tag.gold { background: #ecd08f; }
+    .tag.pink { background: #ffc0d9; }
+    .footer {
+      position: absolute; left: 150px; bottom: 50px;
+      font-weight: 700; font-size: 24px; letter-spacing: 0.3em;
+      color: #ead7ff;
+      animation: s-fade 1s 1.4s both;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg">
+    <div class="moon"></div>
+    <div class="flash"></div>
+    <svg class="bolt" viewBox="0 0 220 520" aria-hidden="true">
+      <path d="M130 0 L80 170 L130 170 L60 330 L105 330 L40 520 L170 280 L120 280 L180 130 L130 130 L170 0Z" fill="#f4eaff"/>
+    </svg>
+  </div>
+
+  <!-- Mountains, the torii and the sea -->
+  <div class="band hills" aria-hidden="true">
+    <svg viewBox="0 0 3840 520" preserveAspectRatio="xMidYMax slice">
+      <path d="M0 400 L300 300 L520 340 L900 180 L1200 300 L1500 260 L1800 340 L2200 220 L2500 120 L2800 260 L3200 200 L3500 300 L3840 260 V520 H0Z" fill="#3d2066" opacity="0.75"/>
+      <path d="M0 450 L400 380 L800 420 L1300 360 L1900 430 L2400 360 L2900 400 L3400 350 L3840 400 V520 H0Z" fill="#26134a"/>
+      <!-- torii, right of centre -->
+      <g fill="#c2304a" transform="translate(2340 170)">
+        <path d="M-20 0 Q180 30 380 0 L392 -22 Q180 8 -32 -22Z" fill="#a8233c"/>
+        <rect x="10" y="10" width="340" height="22" rx="4"/>
+        <rect x="-8" y="62" width="376" height="18" rx="3"/>
+        <rect x="58" y="10" width="30" height="280"/>
+        <rect x="272" y="10" width="30" height="280"/>
+        <rect x="166" y="32" width="28" height="30" fill="#8e1f33"/>
+        <rect x="48" y="282" width="50" height="16" fill="#26134a"/>
+        <rect x="262" y="282" width="50" height="16" fill="#26134a"/>
+      </g>
+    </svg>
+  </div>
+  <div class="band sea" aria-hidden="true">
+    <svg viewBox="0 0 3840 190" preserveAspectRatio="xMidYMax slice">
+      <rect width="3840" height="190" fill="#1a0d36"/>
+      <!-- torii reflection -->
+      <g fill="#c2304a" opacity="0.28" transform="translate(2340 0)">
+        <rect x="58" y="0" width="30" height="150"/>
+        <rect x="272" y="0" width="30" height="150"/>
+        <rect x="-8" y="120" width="376" height="16"/>
+      </g>
+      <g class="shimmer">
+        <line x1="2300" y1="30" x2="2460" y2="30"/>
+        <line x1="2520" y1="56" x2="2640" y2="56"/>
+        <line x1="2380" y1="88" x2="2560" y2="88"/>
+        <line x1="1500" y1="44" x2="1600" y2="44"/>
+        <line x1="1100" y1="100" x2="1260" y2="100"/>
+        <line x1="2800" y1="120" x2="2920" y2="120"/>
+        <line x1="1800" y1="140" x2="1900" y2="140"/>
+      </g>
+    </svg>
+  </div>
+
+  <canvas class="fx" id="petals" aria-hidden="true"></canvas>
+
+  <main class="safe">
+    <div class="heading">
+      <p class="kicker">Inazuma · The Eternal Realm</p>
+      <h1>Objectives</h1>
+      <div class="divider"><span class="line"></span><span class="gem"></span><span class="line"></span></div>
+    </div>
+    <div class="list">
+      <article class="item">
+        <div class="mark"><span>1</span></div>
+        <div><h2>Pursue Eternal Reliability</h2><p>Keep production uptime at 99.95 percent across all services.</p></div>
+        <span class="tag gold">On Track</span>
+      </article>
+      <article class="item">
+        <div class="mark"><span>2</span></div>
+        <div><h2>Strike Swiftly on Releases</h2><p>Cut the release cycle from two weeks to one.</p></div>
+        <span class="tag">In Progress</span>
+      </article>
+      <article class="item">
+        <div class="mark"><span>3</span></div>
+        <div><h2>Forge the Team's Blade</h2><p>Complete one certification per engineer this quarter.</p></div>
+        <span class="tag pink">At Risk</span>
+      </article>
+    </div>
+    <div class="footer">Q1 2027 · Protons Team</div>
+  </main>
+
+  <script>
+    // Sakura petals falling on the wind
+    const R = Sample.rand;
+    Sample.particles(document.getElementById("petals"), {
+      count: 46,
+      create(p, w, h, s, first) {
+        p.x = first ? R(0, w) : R(-0.2 * w, w);
+        p.y = first ? R(0, h) : R(-60, -10);
+        p.r = R(7, 14) * s;
+        p.vx = R(20, 50); p.vy = R(40, 80);
+        p.rot = R(0, 6.3); p.vr = R(-1.5, 1.5);
+        p.flip = R(0, 6.3); p.vf = R(1.5, 3.5);
+        p.c = Math.random() < 0.5 ? "255, 183, 213" : "255, 214, 230";
+      },
+      step(p, dt, w, h, s, t) {
+        p.x += (p.vx + Math.sin(t + p.flip) * 20) * s * dt;
+        p.y += p.vy * s * dt;
+        p.rot += p.vr * dt; p.flip += p.vf * dt;
+        return p.y < h + 30 && p.x < w + 30;
+      },
+      draw(ctx, p) {
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.scale(1, Math.abs(Math.cos(p.flip)) * 0.8 + 0.2);
+        ctx.fillStyle = `rgba(${p.c}, 0.9)`;
+        ctx.beginPath();
+        ctx.moveTo(0, -p.r);
+        ctx.bezierCurveTo(p.r * 0.9, -p.r * 0.6, p.r * 0.7, p.r * 0.7, 0, p.r);
+        ctx.bezierCurveTo(-p.r * 0.7, p.r * 0.7, -p.r * 0.9, -p.r * 0.6, 0, -p.r);
+        ctx.fill();
+        ctx.restore();
+      },
+    });
+  </script>
+</body>
+</html>

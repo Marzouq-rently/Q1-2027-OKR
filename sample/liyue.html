@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Liyue · Style Sample</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cinzel+Decorative:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Zen+Maru+Gothic:wght@400;700&family=M+PLUS+Rounded+1c:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="common.css">
+  <script src="../fonts.js"></script>
+  <script src="common.js"></script>
+  <style>
+    body {
+      background: linear-gradient(180deg, #f6e4bd 0%, #efc488 32%, #d98a5a 62%, #8c3a2c 85%, #4a1a18 100%);
+    }
+    .sun {
+      position: fixed;
+      left: 50%; top: 50%;
+      width: calc(560px * var(--scale)); height: calc(560px * var(--scale));
+      transform: translate(calc(300px * var(--scale)), calc(-240px * var(--scale)));
+      border-radius: 50%;
+      background: radial-gradient(circle, #fff6dc 0 45%, rgba(255, 230, 170, 0.5) 60%, transparent 70%);
+      animation: l-glow 6s ease-in-out infinite alternate;
+    }
+    @keyframes l-glow { to { filter: brightness(1.08); opacity: 0.85; } }
+
+    /* Stone-forest layers: each is a band, slowly swaying for parallax */
+    .band svg { width: 112%; margin-left: -6%; }
+    .far  { --band-h: 760px; opacity: 0.45; }
+    .mid  { --band-h: 600px; opacity: 0.75; }
+    .near { --band-h: 420px; }
+    .far svg  { animation: l-pan 40s ease-in-out infinite alternate; }
+    .mid svg  { animation: l-pan 30s ease-in-out infinite alternate-reverse; }
+    .near svg { animation: l-pan 24s ease-in-out infinite alternate; }
+    @keyframes l-pan { from { transform: translateX(-2%); } to { transform: translateX(2%); } }
+
+    .mist {
+      position: fixed; left: -20%; right: -20%;
+      height: calc(160px * var(--scale));
+      background: radial-gradient(ellipse at center, rgba(255, 244, 225, 0.55), transparent 70%);
+      filter: blur(calc(10px * var(--scale)));
+      animation: l-mist 26s ease-in-out infinite alternate;
+    }
+    @keyframes l-mist { from { transform: translateX(-8%); } to { transform: translateX(8%); } }
+
+    /* ---------- Content ---------- */
+    .safe { display: flex; flex-direction: column; align-items: center; padding-top: 80px; }
+    .heading { text-align: center; animation: s-drop 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s both; }
+    .kicker {
+      margin: 0;
+      font-family: var(--font-heading); font-weight: 700;
+      font-size: 28px; letter-spacing: 0.4em; margin-right: -0.4em;
+      text-transform: uppercase;
+      color: #7a2318;
+    }
+    h1 {
+      margin: 8px 0 16px;
+      font-family: var(--font-heading); font-weight: 700;
+      font-size: 104px; line-height: 1.05;
+      color: #5a140f;
+      text-shadow: 0 2px 0 rgba(255, 236, 190, 0.8), 0 0 34px rgba(255, 220, 150, 0.8);
+    }
+    .divider { --div-color: #9a3a22; }
+
+    .panel {
+      position: relative;
+      width: 1380px;
+      margin-top: 70px;
+      padding: 48px 70px 50px;
+      background: linear-gradient(180deg, rgba(74, 20, 17, 0.93), rgba(46, 12, 12, 0.94));
+      border: 2px solid #d9b56c;
+      border-radius: 8px;
+      box-shadow: inset 0 0 0 7px rgba(46, 12, 12, 0.9), inset 0 0 0 8px rgba(217, 181, 108, 0.45),
+                  0 30px 70px rgba(50, 10, 5, 0.45);
+      animation: s-rise 1s cubic-bezier(0.2, 0.7, 0.2, 1) 0.45s both;
+    }
+    .corner { position: absolute; width: 70px; height: 70px; color: #d9b56c; }
+    .corner.tl { left: 12px; top: 12px; }
+    .corner.tr { right: 12px; top: 12px; transform: scaleX(-1); }
+    .corner.bl { left: 12px; bottom: 12px; transform: scaleY(-1); }
+    .corner.br { right: 12px; bottom: 12px; transform: scale(-1); }
+
+    .kr {
+      display: grid;
+      grid-template-columns: 92px 1fr 120px;
+      align-items: center;
+      gap: 0 34px;
+      padding: 22px 0;
+      border-bottom: 1px solid rgba(217, 181, 108, 0.22);
+      animation: s-rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    }
+    .kr:last-child { border-bottom: 0; }
+    .kr:nth-child(5) { animation-delay: 0.8s; }
+    .kr:nth-child(6) { animation-delay: 0.95s; }
+    .kr:nth-child(7) { animation-delay: 1.1s; }
+    .kr:nth-child(8) { animation-delay: 1.25s; }
+    .seal {
+      grid-row: span 2;
+      width: 86px; height: 86px;
+      display: grid; place-items: center;
+      background: #b0302a;
+      border: 3px solid #f0d49a;
+      border-radius: 12px;
+      box-shadow: inset 0 0 0 3px #b0302a, inset 0 0 0 5px rgba(240, 212, 154, 0.5);
+      font-weight: 700; font-size: 26px; line-height: 1;
+      color: #fff3dc;
+      text-align: center;
+      transform: rotate(-4deg);
+    }
+    .seal small { display: block; font-size: 15px; letter-spacing: 0.15em; margin-bottom: 4px; }
+    .kr .text { font-size: 30px; color: #fbeedd; line-height: 1.3; }
+    .kr .pct {
+      grid-row: span 2;
+      font-weight: 700; font-size: 44px; color: #f0d49a; text-align: right;
+    }
+    .track {
+      margin-top: 14px; height: 16px;
+      background: rgba(255, 240, 210, 0.12);
+      border: 1px solid rgba(217, 181, 108, 0.45);
+      border-radius: 999px; overflow: hidden;
+    }
+    .fill {
+      position: relative;
+      height: 100%; width: var(--v);
+      background: linear-gradient(90deg, #a8742f, #f3d58e 70%, #fff3c8);
+      border-radius: inherit;
+      transform-origin: left;
+      animation: l-fill 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) 1.3s both;
+      overflow: hidden;
+    }
+    .fill::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.75) 50%, transparent 70%);
+      transform: translateX(-100%);
+      animation: l-sheen 3.6s ease-in-out 3s infinite;
+    }
+    @keyframes l-fill { from { transform: scaleX(0); } }
+    @keyframes l-sheen { 0% { transform: translateX(-100%); } 45%, 100% { transform: translateX(100%); } }
+
+    .footer {
+      position: absolute; bottom: 40px; left: 0; right: 0; text-align: center;
+      font-weight: 700; font-size: 24px; letter-spacing: 0.3em;
+      color: #ffe9c4; text-shadow: 0 1px 6px rgba(40, 6, 4, 0.9);
+      animation: s-fade 1s 1.5s both;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg">
+    <div class="sun"></div>
+  </div>
+
+  <!-- Stone pillars, far to near -->
+  <div class="band far" aria-hidden="true">
+    <svg viewBox="0 0 3840 760" preserveAspectRatio="xMidYMax slice">
+      <g fill="#b77a5e">
+        <path d="M300 760 V300 q0-40 30-60 q40-10 60 20 q15 30 10 80 V760Z"/>
+        <path d="M620 760 V200 q10-50 50-60 q50 0 60 50 q5 40-5 100 V760Z"/>
+        <path d="M1150 760 V380 q20-60 60-50 q40 20 30 80 V760Z"/>
+        <path d="M2450 760 V260 q10-60 60-60 q40 10 45 60 V760Z"/>
+        <path d="M2900 760 V160 q0-50 50-60 q50 0 60 60 q10 60 0 120 V760Z"/>
+        <path d="M3400 760 V320 q20-50 60-45 q35 15 30 70 V760Z"/>
+        <path d="M0 760 V600 q600-80 1200-30 q700 50 1400-20 q700-60 1240 20 V760Z"/>
+      </g>
+    </svg>
+  </div>
+  <div class="mist" style="top:52%"></div>
+  <div class="band mid" aria-hidden="true">
+    <svg viewBox="0 0 3840 600" preserveAspectRatio="xMidYMax slice">
+      <g fill="#7d3a2d">
+        <path d="M150 600 V240 q0-60 60-70 q60 0 70 60 q10 60-5 120 V600Z"/>
+        <path d="M480 600 V330 q20-50 60-40 q30 20 25 70 V600Z"/>
+        <path d="M900 600 V150 q10-70 70-70 q55 10 60 70 q5 80-10 160 V600Z"/>
+        <path d="M2700 600 V200 q10-60 65-60 q50 10 55 70 V600Z"/>
+        <path d="M3100 600 V300 q15-50 55-45 q40 15 35 60 V600Z"/>
+        <path d="M3500 600 V120 q10-60 60-60 q55 5 60 70 q5 70-10 140 V600Z"/>
+        <path d="M0 600 V470 q500-60 1100-20 q800 50 1600-10 q600-40 1140 10 V600Z"/>
+      </g>
+      <!-- little pines on pillar tops -->
+      <g fill="#5a2620">
+        <path d="M965 92 l-40 40 h25 l-30 30 h90 l-30-30 h25z"/>
+        <path d="M3560 70 l-36 36 h22 l-26 26 h80 l-26-26 h22z"/>
+      </g>
+    </svg>
+  </div>
+  <div class="mist" style="top:74%; animation-duration:34s; animation-direction:alternate-reverse"></div>
+  <div class="band near" aria-hidden="true">
+    <svg viewBox="0 0 3840 420" preserveAspectRatio="xMidYMax slice">
+      <g fill="#3e1514">
+        <path d="M60 420 V120 q10-60 70-60 q60 10 60 70 q0 80-10 160 V420Z"/>
+        <path d="M3620 420 V90 q10-60 70-60 q60 10 60 70 q0 80-10 160 V420Z"/>
+        <path d="M0 420 V330 q700-50 1500-10 q900 40 1700-10 q400-20 640 10 V420Z"/>
+      </g>
+    </svg>
+  </div>
+
+  <canvas class="fx" id="lanterns" aria-hidden="true"></canvas>
+
+  <main class="safe">
+    <div class="heading">
+      <p class="kicker">Liyue · Harbor of Contracts</p>
+      <h1>Key Results</h1>
+      <div class="divider"><span class="line"></span><span class="gem"></span><span class="line"></span></div>
+    </div>
+
+    <section class="panel">
+      <svg class="corner tl" viewBox="0 0 70 70" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 66 V4 H66"/><path d="M14 40 a12 12 0 1 1 12 -12 a6 6 0 1 0 -6 6"/></svg>
+      <svg class="corner tr" viewBox="0 0 70 70" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 66 V4 H66"/><path d="M14 40 a12 12 0 1 1 12 -12 a6 6 0 1 0 -6 6"/></svg>
+      <svg class="corner bl" viewBox="0 0 70 70" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 66 V4 H66"/><path d="M14 40 a12 12 0 1 1 12 -12 a6 6 0 1 0 -6 6"/></svg>
+      <svg class="corner br" viewBox="0 0 70 70" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 66 V4 H66"/><path d="M14 40 a12 12 0 1 1 12 -12 a6 6 0 1 0 -6 6"/></svg>
+
+      <div class="kr" style="--v:82%">
+        <div class="seal"><span><small>KR</small>1</span></div>
+        <div class="text">Reduce average API response time to under 200 ms</div>
+        <div class="pct">82%</div>
+        <div class="track"><div class="fill"></div></div>
+      </div>
+      <div class="kr" style="--v:64%">
+        <div class="seal"><span><small>KR</small>2</span></div>
+        <div class="text">Migrate four legacy services to the new platform</div>
+        <div class="pct">64%</div>
+        <div class="track"><div class="fill"></div></div>
+      </div>
+      <div class="kr" style="--v:45%">
+        <div class="seal"><span><small>KR</small>3</span></div>
+        <div class="text">Close 90 percent of security findings within SLA</div>
+        <div class="pct">45%</div>
+        <div class="track"><div class="fill"></div></div>
+      </div>
+      <div class="kr" style="--v:20%">
+        <div class="seal"><span><small>KR</small>4</span></div>
+        <div class="text">Run two cross-team knowledge-sharing sessions</div>
+        <div class="pct">20%</div>
+        <div class="track"><div class="fill"></div></div>
+      </div>
+    </section>
+    <div class="footer">Q1 2027 · Protons Team</div>
+  </main>
+
+  <script>
+    // Sky lanterns rising and swaying
+    const R = Sample.rand;
+    Sample.particles(document.getElementById("lanterns"), {
+      count: 26,
+      create(p, w, h, s, first) {
+        p.z = R(0.35, 1);                 // depth: small/far to big/near
+        p.x = R(0, w);
+        p.y = first ? R(0, h) : h + R(20, 120) * s;
+        p.vy = R(18, 34) * p.z;
+        p.ph = R(0, 6.3);
+        p.fl = R(0, 6.3);
+      },
+      step(p, dt, w, h, s, t) {
+        p.y -= p.vy * s * dt;
+        p.x += Math.sin(t * 0.4 + p.ph) * 8 * s * dt;
+        return p.y > -80 * s;
+      },
+      draw(ctx, p, s, t) {
+        const k = p.z * s, lw = 30 * k, lh = 40 * k;
+        const flick = 0.85 + Math.sin(t * 6 + p.fl) * 0.08;
+        const fade = Math.min(1, p.y / (ctx.canvas.height * 0.25 + 1) + 0.15);
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(Math.sin(t * 0.8 + p.ph) * 0.06);
+        ctx.globalAlpha = Math.max(0, fade) * (0.45 + p.z * 0.55);
+        const g = ctx.createRadialGradient(0, 0, 0, 0, 0, lh * 1.6);
+        g.addColorStop(0, `rgba(255, 190, 90, ${0.55 * flick})`);
+        g.addColorStop(1, "rgba(255, 160, 60, 0)");
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(0, 0, lh * 1.6, 0, 6.3); ctx.fill();
+        const body = ctx.createLinearGradient(0, -lh / 2, 0, lh / 2);
+        body.addColorStop(0, "#ffd88a"); body.addColorStop(1, "#e2552c");
+        ctx.fillStyle = body;
+        ctx.beginPath();
+        ctx.moveTo(-lw * 0.42, -lh / 2);
+        ctx.lineTo(lw * 0.42, -lh / 2);
+        ctx.quadraticCurveTo(lw * 0.62, 0, lw * 0.36, lh / 2);
+        ctx.lineTo(-lw * 0.36, lh / 2);
+        ctx.quadraticCurveTo(-lw * 0.62, 0, -lw * 0.42, -lh / 2);
+        ctx.fill();
+        ctx.fillStyle = "#7a2a16";
+        ctx.fillRect(-lw * 0.45, -lh / 2 - 2 * k, lw * 0.9, 3 * k);
+        ctx.restore();
+      },
+    });
+  </script>
+</body>
+</html>

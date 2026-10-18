@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Adventurer's Handbook · Style Sample</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cinzel+Decorative:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Zen+Maru+Gothic:wght@400;700&family=M+PLUS+Rounded+1c:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="common.css">
+  <script src="../fonts.js"></script>
+  <script src="common.js"></script>
+  <style>
+    :root {
+      --paper: #f4efe3; --card: #fffaf0; --ink: #3b4255; --muted: #6b6558;
+      --gold: #b8945a; --line: #e2d6bd;
+    }
+    body {
+      background:
+        radial-gradient(ellipse at 50% 40%, rgba(255, 255, 255, 0.6), transparent 70%),
+        radial-gradient(circle at 20% 30%, rgba(184, 148, 90, 0.07) 0 1px, transparent 2px) 0 0 / 9px 9px,
+        radial-gradient(circle at 70% 60%, rgba(120, 100, 70, 0.06) 0 1px, transparent 2px) 0 0 / 13px 13px,
+        linear-gradient(180deg, #efe7d6 0%, #f4efe3 50%, #e9dfca 100%);
+    }
+    .watermark {
+      position: fixed; left: 50%; top: 50%;
+      width: calc(1500px * var(--scale)); height: calc(1500px * var(--scale));
+      margin: calc(-750px * var(--scale)) 0 0 calc(-750px * var(--scale));
+      color: #b8945a; opacity: 0.12;
+      animation: s-spin 240s linear infinite;
+    }
+    .edge {
+      position: fixed; inset: 0;
+      box-shadow: inset 0 0 calc(160px * var(--scale)) rgba(150, 120, 70, 0.28);
+    }
+
+    /* ---------- Content ---------- */
+    .safe { color: var(--ink); }
+    header {
+      position: absolute; left: 80px; right: 80px; top: 76px; height: 104px;
+      display: flex; align-items: center; gap: 26px;
+      border-bottom: 2px solid var(--line);
+      animation: s-drop 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s both;
+    }
+    .crest {
+      width: 84px; height: 84px; border-radius: 50%;
+      display: grid; place-items: center;
+      background: var(--ink); color: #ece5d8;
+      box-shadow: 0 0 0 4px var(--paper), 0 0 0 6px var(--gold);
+    }
+    .crest svg { width: 46px; height: 46px; }
+    header h1 {
+      margin: 0; font-family: var(--font-heading); font-weight: 700; font-size: 56px; line-height: 1;
+    }
+    header .sub { margin-top: 8px; font-size: 22px; color: var(--muted); letter-spacing: 0.08em; }
+    .rank {
+      margin-left: auto;
+      display: flex; align-items: center; gap: 14px;
+      padding: 10px 26px 10px 12px;
+      background: var(--card); border: 2px solid var(--line); border-radius: 999px;
+      font-weight: 700; font-size: 24px;
+    }
+    .rank b { display: grid; place-items: center; width: 50px; height: 50px; border-radius: 50%; background: var(--gold); color: #fff; font-size: 22px; }
+
+    nav {
+      position: absolute; left: 80px; top: 210px; width: 120px;
+      display: grid; gap: 18px;
+      animation: hb-left 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.3s both;
+    }
+    @keyframes hb-left { from { opacity: 0; transform: translateX(-40px); } }
+    nav .tab {
+      height: 120px; border-radius: 16px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+      background: rgba(255, 250, 240, 0.7); border: 2px solid var(--line);
+      color: var(--muted); font-size: 17px; font-weight: 700;
+    }
+    nav .tab svg { width: 40px; height: 40px; }
+    nav .tab.on { background: var(--ink); border-color: var(--ink); color: #ece5d8; box-shadow: 0 10px 20px rgba(59, 66, 85, 0.25); }
+    nav .tab.on svg { color: #e9cf95; }
+
+    .list {
+      position: absolute; left: 240px; top: 210px; width: 700px;
+      display: grid; gap: 20px;
+    }
+    .quest {
+      position: relative;
+      display: grid; grid-template-columns: 64px 1fr auto; align-items: center; gap: 22px;
+      padding: 26px 28px;
+      background: var(--card);
+      border: 2px solid var(--line); border-radius: 14px;
+      box-shadow: 0 6px 14px rgba(120, 100, 60, 0.08);
+      animation: s-rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+      overflow: hidden;
+    }
+    .quest:nth-child(1) { animation-delay: 0.4s; }
+    .quest:nth-child(2) { animation-delay: 0.52s; }
+    .quest:nth-child(3) { animation-delay: 0.64s; }
+    .quest:nth-child(4) { animation-delay: 0.76s; }
+    .quest.sel {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(184, 148, 90, 0.25), 0 12px 24px rgba(120, 100, 60, 0.15);
+    }
+    .quest.sel::after {
+      content: ""; position: absolute; top: 0; bottom: 0; width: 140px; left: -160px;
+      background: linear-gradient(100deg, transparent, rgba(233, 207, 149, 0.45), transparent);
+      animation: hb-shine 4.5s ease-in-out 1.8s infinite;
+    }
+    @keyframes hb-shine { 0% { left: -160px; } 35%, 100% { left: 110%; } }
+    .qicon {
+      width: 56px; height: 56px; transform: rotate(45deg);
+      display: grid; place-items: center;
+      border: 2px solid var(--gold); background: #f6ecd6; color: #8a6a35;
+      margin-left: 4px;
+    }
+    .qicon svg { width: 30px; height: 30px; transform: rotate(-45deg); }
+    .quest.sel .qicon { background: var(--gold); color: #fff; animation: hb-bob 2.6s ease-in-out infinite; }
+    @keyframes hb-bob { 50% { transform: rotate(45deg) scale(1.08); } }
+    .quest h3 { margin: 0 0 4px; font-family: var(--font-heading); font-weight: 700; font-size: 30px; }
+    .quest .meta { font-size: 20px; color: var(--muted); }
+    .status { font-weight: 700; font-size: 20px; padding: 8px 16px; border-radius: 999px; background: #efe5cf; color: #6b5223; }
+    .status.done { background: #dfeedd; color: #2e5e2e; }
+
+    .detail {
+      position: absolute; left: 980px; right: 80px; top: 210px; bottom: 90px;
+      padding: 44px 50px;
+      background: var(--card);
+      border: 2px solid var(--line); border-radius: 18px;
+      box-shadow: inset 0 0 0 8px var(--card), inset 0 0 0 9px rgba(184, 148, 90, 0.35), 0 14px 30px rgba(120, 100, 60, 0.12);
+      animation: hb-right 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.6s both;
+    }
+    @keyframes hb-right { from { opacity: 0; transform: translateX(40px); } }
+    .detail .type { font-weight: 700; font-size: 20px; letter-spacing: 0.2em; text-transform: uppercase; color: #8a6a35; }
+    .detail h2 { margin: 6px 0 14px; font-family: var(--font-heading); font-weight: 700; font-size: 46px; line-height: 1.15; }
+    .detail p { margin: 0; font-size: 25px; line-height: 1.55; color: #4c5266; }
+    .detail h4 { margin: 30px 0 12px; font-size: 22px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .checks { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+    .checks li { display: flex; align-items: center; gap: 16px; font-size: 25px; }
+    .box { width: 30px; height: 30px; flex: none; border: 2px solid var(--gold); border-radius: 6px; display: grid; place-items: center; color: #fff; }
+    .checks li.ok .box { background: var(--gold); }
+    .checks li.ok .box svg { width: 20px; height: 20px; stroke-dasharray: 30; stroke-dashoffset: 30; animation: hb-tick 0.5s ease-out forwards; }
+    .checks li.ok:nth-child(1) .box svg { animation-delay: 1.4s; }
+    .checks li.ok:nth-child(2) .box svg { animation-delay: 1.6s; }
+    @keyframes hb-tick { to { stroke-dashoffset: 0; } }
+    .checks li.ok span { color: var(--muted); text-decoration: line-through; text-decoration-color: rgba(107, 101, 88, 0.6); }
+    .prog { margin-top: 26px; }
+    .prog .row { display: flex; justify-content: space-between; font-weight: 700; font-size: 22px; }
+    .prog .track { margin-top: 8px; height: 14px; background: #efe5cf; border-radius: 999px; overflow: hidden; }
+    .prog .fill { height: 100%; width: 50%; background: linear-gradient(90deg, #b8945a, #e9cf95); border-radius: inherit; transform-origin: left; animation: hb-fill 1.4s cubic-bezier(0.2, 0.7, 0.2, 1) 1.2s both; }
+    @keyframes hb-fill { from { transform: scaleX(0); } }
+    .bottom { position: absolute; left: 50px; right: 50px; bottom: 40px; display: flex; align-items: center; justify-content: space-between; }
+    .rewards { display: flex; gap: 14px; }
+    .reward {
+      width: 78px; height: 78px; border-radius: 12px;
+      display: grid; place-items: center;
+      background: linear-gradient(180deg, #c99a5a, #8a6a35);
+      border: 2px solid #f3e4c4; color: #fff;
+      position: relative;
+    }
+    .reward.p { background: linear-gradient(180deg, #a98be0, #6c4fa8); }
+    .reward svg { width: 40px; height: 40px; }
+    .reward i { position: absolute; bottom: -4px; right: -6px; font-style: normal; font-weight: 700; font-size: 16px; background: var(--ink); color: #ece5d8; padding: 2px 8px; border-radius: 999px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 16px;
+      padding: 10px 40px 10px 10px;
+      border-radius: 999px;
+      background: var(--ink); color: #ece5d8;
+      font-weight: 700; font-size: 26px;
+      box-shadow: 0 8px 18px rgba(59, 66, 85, 0.3);
+      animation: hb-breathe 2.8s ease-in-out infinite;
+    }
+    .btn .dot { width: 46px; height: 46px; border-radius: 50%; background: #ece5d8; display: grid; place-items: center; color: var(--ink); }
+    .btn .dot svg { width: 24px; height: 24px; }
+    @keyframes hb-breathe { 50% { box-shadow: 0 8px 26px rgba(184, 148, 90, 0.6); } }
+  </style>
+</head>
+<body>
+  <div class="bg">
+    <svg class="watermark" viewBox="-100 -100 200 200" fill="none" stroke="currentColor" aria-hidden="true">
+      <circle r="96" stroke-width="1"/><circle r="88" stroke-width="0.5"/><circle r="60" stroke-width="0.8" stroke-dasharray="2 3"/>
+      <path d="M0 -96 L10 0 L0 96 L-10 0Z M-96 0 L0 -10 L96 0 L0 10Z" stroke-width="0.8"/>
+      <path d="M-62 -62 L62 62 M62 -62 L-62 62" stroke-width="0.4"/>
+      <g fill="currentColor" stroke="none"><circle cx="30" cy="-50" r="2"/><circle cx="52" cy="-22" r="1.5"/><circle cx="-40" cy="38" r="2"/><circle cx="-20" cy="62" r="1.5"/></g>
+      <path d="M30 -50 L52 -22 M-40 38 L-20 62" stroke-width="0.5"/>
+    </svg>
+    <div class="edge"></div>
+  </div>
+  <canvas class="fx" id="motes" aria-hidden="true"></canvas>
+
+  <main class="safe">
+    <header>
+      <div class="crest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4 5c3-1 6-1 8 1 2-2 5-2 8-1v14c-3-1-6-1-8 1-2-2-5-2-8-1z"/><path d="M12 6v14"/></svg></div>
+      <div><h1>Adventurer's Handbook</h1><div class="sub">Quest Log · Q1 2027 · Protons Team</div></div>
+      <div class="rank"><b>45</b>Team Rank</div>
+    </header>
+
+    <nav>
+      <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg>Daily</div>
+      <div class="tab on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 2l3 6 6 1-4.5 4.5L18 20l-6-3-6 3 1.5-6.5L3 9l6-1z"/></svg>Quests</div>
+      <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Stats</div>
+      <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg>Team</div>
+    </nav>
+
+    <section class="list">
+      <article class="quest">
+        <div class="qicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></div>
+        <div><h3>Map the Terrain</h3><div class="meta">Objective 1 · Discovery</div></div>
+        <span class="status done">Complete</span>
+      </article>
+      <article class="quest sel">
+        <div class="qicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg></div>
+        <div><h3>Harden the Platform</h3><div class="meta">Objective 2 · Reliability</div></div>
+        <span class="status">Tracking</span>
+      </article>
+      <article class="quest">
+        <div class="qicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></div>
+        <div><h3>Swift Delivery</h3><div class="meta">Objective 3 · Speed</div></div>
+        <span class="status">In Progress</span>
+      </article>
+      <article class="quest">
+        <div class="qicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-4 3-6 6-6s6 2 6 6M15 14c3 0 6 2 6 5"/></svg></div>
+        <div><h3>Grow the Party</h3><div class="meta">Objective 4 · People</div></div>
+        <span class="status">Not Started</span>
+      </article>
+    </section>
+
+    <section class="detail">
+      <div class="type">Objective 2 · Reliability</div>
+      <h2>Harden the Platform</h2>
+      <p>Make core services resilient so that no single failure can stop the team's adventure.</p>
+      <h4>Key Results</h4>
+      <ul class="checks">
+        <li class="ok"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><span>Add health checks to every service</span></li>
+        <li class="ok"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><span>Automate database backups</span></li>
+        <li><span class="box"></span><span>Run a quarterly failover drill</span></li>
+        <li><span class="box"></span><span>Reach 99.95 percent uptime</span></li>
+      </ul>
+      <div class="prog"><div class="row"><span>Progress</span><span>2 / 4</span></div><div class="track"><div class="fill"></div></div></div>
+      <div class="bottom">
+        <div class="rewards">
+          <div class="reward"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l4 7-4 13-4-13z" opacity=".9"/><path d="M8 9h8l-4 13z" opacity=".6"/></svg><i>x2</i></div>
+          <div class="reward p"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2l3 6 6 1-4.5 4.5L18 20l-6-3-6 3 1.5-6.5L3 9l6-1z"/></svg><i>x1</i></div>
+        </div>
+        <div class="btn"><span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg></span>Track</div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Golden dust motes floating over the parchment
+    const R = Sample.rand;
+    Sample.particles(document.getElementById("motes"), {
+      count: 40,
+      create(p, w, h, s, first) {
+        p.x = R(0, w); p.y = first ? R(0, h) : h + 10;
+        p.r = R(1.2, 3.2) * s; p.vy = R(6, 16); p.ph = R(0, 6.3);
+      },
+      step(p, dt, w, h, s, t) {
+        p.y -= p.vy * s * dt;
+        p.x += Math.sin(t * 0.6 + p.ph) * 10 * s * dt;
+        return p.y > -10;
+      },
+      draw(ctx, p, s, t) {
+        const a = 0.25 + 0.35 * (0.5 + 0.5 * Math.sin(t * 1.5 + p.ph));
+        ctx.fillStyle = `rgba(184, 148, 90, ${a})`;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.3); ctx.fill();
+      },
+    });
+  </script>
+</body>
+</html>

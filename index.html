@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Q1 2027 OKR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cinzel+Decorative:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Zen+Maru+Gothic:wght@400;700&family=M+PLUS+Rounded+1c:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Top-right controls. Clicks here never advance the slide. -->
+  <div class="controls">
+    <button id="soundBtn" class="ctrl" type="button" aria-label="Mute sound" title="Mute sound (M)">
+      <svg class="icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M11 5 6 9H3v6h3l5 4V5z" fill="currentColor"/>
+        <path d="M15.5 8.5a5 5 0 0 1 0 7"/>
+        <path d="M18.5 5.5a9 9 0 0 1 0 13"/>
+      </svg>
+      <svg class="icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M11 5 6 9H3v6h3l5 4V5z" fill="currentColor"/>
+        <path d="m16 9 6 6"/>
+        <path d="m22 9-6 6"/>
+      </svg>
+    </button>
+    <button id="nextBtn" class="ctrl" type="button" aria-label="Next slide" title="Next slide (→)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="m9 5 7 7-7 7"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Fixed 1920x1080 canvas, scaled to fit the window -->
+  <main id="stage" class="stage"></main>
+
+  <script src="fonts.js"></script>
+  <script src="deck.js"></script>
+
+  <!--
+    SLIDES: the order of these script tags is the order of the presentation.
+    To insert a slide, add its file in slides/ and put its tag in the right place.
+    Keep the slide table in CLAUDE.md in sync.
+  -->
+  <script src="slides/slide-intro.js"></script>
+  <script src="slides/slide-intro-video.js"></script>
+  <script src="slides/slide-mission-vision.js"></script>
+
+  <script>Deck.start();</script>
+</body>
+</html>

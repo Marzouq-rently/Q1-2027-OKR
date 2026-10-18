@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Natlan · Style Sample</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cinzel+Decorative:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Zen+Maru+Gothic:wght@400;700&family=M+PLUS+Rounded+1c:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="common.css">
+  <script src="../fonts.js"></script>
+  <script src="common.js"></script>
+  <style>
+    body {
+      background: linear-gradient(180deg, #2a0906 0%, #6e1a0c 35%, #c2441a 66%, #f08a2c 80%, #5a1408 92%, #1e0604 100%);
+    }
+    /* Big tribal sun ring behind the content */
+    .sunring {
+      position: fixed; left: 50%; top: 50%;
+      width: calc(1300px * var(--scale)); height: calc(1300px * var(--scale));
+      margin: calc(-650px * var(--scale)) 0 0 calc(-650px * var(--scale));
+      color: #ffb347;
+      opacity: 0.22;
+      animation: s-spin 120s linear infinite;
+    }
+    .sunring.inner { width: calc(900px * var(--scale)); height: calc(900px * var(--scale)); margin: calc(-450px * var(--scale)) 0 0 calc(-450px * var(--scale)); animation-direction: reverse; animation-duration: 80s; opacity: 0.18; }
+    .heat {
+      position: fixed; inset: 0;
+      background: radial-gradient(ellipse 60% 30% at 50% 82%, rgba(255, 170, 60, 0.55), transparent 70%);
+      animation: n-heat 4s ease-in-out infinite alternate;
+    }
+    @keyframes n-heat { from { opacity: 0.6; } to { opacity: 1; } }
+
+    .band { --band-h: 330px; }
+    .lava { animation: n-lava 3s ease-in-out infinite alternate; }
+    @keyframes n-lava { from { opacity: 0.55; } to { opacity: 1; } }
+
+    /* ---------- Content ---------- */
+    .safe { display: flex; flex-direction: column; align-items: center; padding-top: 100px; }
+    .heading { text-align: center; animation: n-slam 0.7s cubic-bezier(0.3, 1.4, 0.5, 1) 0.15s both; }
+    @keyframes n-slam { from { opacity: 0; transform: scale(1.4); } to { opacity: 1; transform: none; } }
+    .kicker {
+      display: inline-block;
+      margin: 0;
+      padding: 10px 34px;
+      font-family: var(--font-heading); font-weight: 700;
+      font-size: 28px; letter-spacing: 0.4em; text-transform: uppercase;
+      color: #2a0906; background: #ffc46b;
+      clip-path: polygon(4% 0, 100% 0, 96% 100%, 0 100%);
+    }
+    h1 {
+      margin: 18px 0 12px;
+      font-family: var(--font-heading); font-weight: 700;
+      font-size: 108px; line-height: 1.05;
+      background: linear-gradient(180deg, #fff3d6 0%, #ffc46b 50%, #ff7a2a 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      filter: drop-shadow(0 6px 0 #3a0c06) drop-shadow(0 0 30px rgba(255, 120, 40, 0.5));
+    }
+    .divider { --div-color: #ffc46b; }
+
+    .stats { display: grid; grid-template-columns: repeat(3, 440px); gap: 46px; margin-top: 70px; }
+    .stat {
+      position: relative;
+      padding: 40px 30px 36px;
+      text-align: center;
+      background: linear-gradient(160deg, rgba(50, 10, 6, 0.94), rgba(28, 6, 4, 0.94));
+      clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
+      animation: n-in 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+    }
+    .stat::before {
+      /* thick bold top bar with a zigzag */
+      content: ""; position: absolute; left: 0; right: 0; top: 0; height: 14px;
+      background: repeating-linear-gradient(135deg, #ffb347 0 14px, #e2551d 14px 28px);
+      background-size: 200% 100%;
+      animation: n-zig 3s linear infinite;
+    }
+    @keyframes n-zig { to { background-position: -40px 0; } }
+    .stat:nth-child(1) { animation-delay: 0.5s; }
+    .stat:nth-child(2) { animation-delay: 0.65s; }
+    .stat:nth-child(3) { animation-delay: 0.8s; }
+    @keyframes n-in { from { opacity: 0; transform: translateX(-80px) skewX(-8deg); } to { opacity: 1; transform: none; } }
+    .stat .big {
+      font-family: var(--font-heading); font-weight: 700;
+      font-size: 150px; line-height: 1;
+      color: #ffd28a;
+      text-shadow: 0 0 30px rgba(255, 140, 40, 0.6);
+    }
+    .stat .big small { font-size: 70px; }
+    .stat .lbl {
+      margin-top: 6px;
+      font-weight: 700; font-size: 30px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #fff0dc;
+    }
+    .stat p { margin: 10px 0 0; font-size: 23px; color: #f2d2b4; }
+
+    .momentum {
+      width: 1412px; margin-top: 46px; padding: 22px 34px 26px;
+      background: rgba(30, 6, 4, 0.82);
+      border-top: 3px solid #ffb347;
+      clip-path: polygon(2% 0, 100% 0, 98% 100%, 0 100%);
+      animation: s-fade 1s 1s both;
+    }
+    .momentum .row { display: flex; justify-content: space-between; font-weight: 700; font-size: 24px; color: #fff0dc; text-shadow: 0 1px 4px #2a0906; }
+    .segs { display: grid; grid-template-columns: repeat(13, 1fr); gap: 8px; margin-top: 12px; }
+    .seg {
+      height: 22px; background: rgba(120, 40, 20, 0.6);
+      clip-path: polygon(14% 0, 100% 0, 86% 100%, 0 100%);
+    }
+    .seg.on {
+      background: linear-gradient(90deg, #ff7a2a, #ffc46b);
+      animation: n-seg 0.4s ease-out both, n-flick 2.4s ease-in-out infinite alternate;
+    }
+    @keyframes n-seg { from { opacity: 0; } }
+    @keyframes n-flick { to { filter: brightness(1.25); } }
+
+    .footer {
+      position: absolute; bottom: 40px; left: 0; right: 0; text-align: center;
+      font-weight: 700; font-size: 24px; letter-spacing: 0.3em; color: #ffe3b8;
+      text-shadow: 0 1px 6px #1e0604;
+      animation: s-fade 1s 1.4s both;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg">
+    <div class="heat"></div>
+    <svg class="sunring" viewBox="0 0 200 200" fill="none" stroke="currentColor" aria-hidden="true">
+      <circle cx="100" cy="100" r="96" stroke-width="1.5"/>
+      <circle cx="100" cy="100" r="84" stroke-width="5" stroke-dasharray="10 6"/>
+      <g fill="currentColor" stroke="none">
+        <path d="M100 0 l6 12 h-12z"/><path d="M100 200 l6 -12 h-12z"/><path d="M0 100 l12 6 v-12z"/><path d="M200 100 l-12 6 v-12z"/>
+        <path d="M29 29 l12 5 l-7 7z"/><path d="M171 29 l-5 12 l-7 -7z"/><path d="M29 171 l5 -12 l7 7z"/><path d="M171 171 l-12 -5 l7 -7z"/>
+      </g>
+    </svg>
+    <svg class="sunring inner" viewBox="0 0 200 200" fill="none" stroke="currentColor" aria-hidden="true">
+      <circle cx="100" cy="100" r="94" stroke-width="3"/>
+      <path d="M100 10 L120 50 L160 40 L150 80 L190 100 L150 120 L160 160 L120 150 L100 190 L80 150 L40 160 L50 120 L10 100 L50 80 L40 40 L80 50Z" stroke-width="2"/>
+    </svg>
+  </div>
+
+  <!-- Volcano ridge with glowing lava seams -->
+  <div class="band" aria-hidden="true">
+    <svg viewBox="0 0 3840 420" preserveAspectRatio="xMidYMax slice">
+      <path d="M0 300 L500 200 L800 260 L1150 90 L1250 80 L1600 260 L2000 220 L2500 120 L2620 110 L2900 240 L3300 190 L3840 280 V420 H0Z" fill="#3a0c06"/>
+      <path class="lava" d="M1180 95 L1150 180 L1190 240 L1170 320 M2560 118 L2590 200 L2550 270" stroke="#ff8a2a" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M0 360 L400 320 L900 350 L1400 300 L1920 340 L2500 300 L3000 340 L3500 310 L3840 340 V420 H0Z" fill="#1e0604"/>
+      <!-- bold geometric markers -->
+      <g fill="#ffb347" opacity="0.85">
+        <path d="M600 360 l40 -60 l40 60z"/><path d="M3150 350 l34 -52 l34 52z"/>
+      </g>
+    </svg>
+  </div>
+
+  <canvas class="fx" id="embers" aria-hidden="true"></canvas>
+
+  <main class="safe">
+    <div class="heading">
+      <p class="kicker">Natlan · Land of Fire</p>
+      <h1>Quarter At A Glance</h1>
+      <div class="divider"><span class="line"></span><span class="gem"></span><span class="line"></span></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="big">3</div><div class="lbl">Objectives</div><p>Bold goals for the quarter</p></div>
+      <div class="stat"><div class="big">9</div><div class="lbl">Key Results</div><p>Measurable and tracked weekly</p></div>
+      <div class="stat"><div class="big">87<small>%</small></div><div class="lbl">Confidence</div><p>Team's average forecast</p></div>
+    </div>
+    <div class="momentum">
+      <div class="row"><span>Momentum · Week 8 of 13</span><span>62%</span></div>
+      <div class="segs" id="segs"></div>
+    </div>
+    <div class="footer">Q1 2027 · Protons Team</div>
+  </main>
+
+  <script>
+    // Momentum segments
+    const segs = document.getElementById("segs");
+    for (let i = 0; i < 13; i++) {
+      const d = document.createElement("div");
+      d.className = "seg" + (i < 8 ? " on" : "");
+      d.style.animationDelay = `${1.2 + i * 0.08}s, ${i * 0.15}s`;
+      segs.appendChild(d);
+    }
+    // Embers rising with flicker
+    const R = Sample.rand;
+    Sample.particles(document.getElementById("embers"), {
+      count: 70,
+      create(p, w, h, s, first) {
+        p.x = R(0, w);
+        p.y = first ? R(0, h) : h + R(0, 40) * s;
+        p.r = R(1.5, 4) * s;
+        p.vy = R(50, 120); p.vx = R(-20, 20);
+        p.life = first ? R(0, 1) : 0; p.ttl = R(4, 9);
+        p.ph = R(0, 6.3);
+      },
+      step(p, dt, w, h, s, t) {
+        p.life += dt / p.ttl;
+        p.y -= p.vy * s * dt;
+        p.x += (p.vx + Math.sin(t * 3 + p.ph) * 25) * s * dt;
+        return p.life < 1 && p.y > -20;
+      },
+      draw(ctx, p, s, t) {
+        const a = Math.sin(p.life * Math.PI) * (0.7 + 0.3 * Math.sin(t * 12 + p.ph));
+        const rr = p.r * 4;
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, rr);
+        g.addColorStop(0, `rgba(255, 236, 170, ${a})`);
+        g.addColorStop(0.25, `rgba(255, 140, 40, ${a * 0.7})`);
+        g.addColorStop(1, "rgba(255, 80, 20, 0)");
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(p.x, p.y, rr, 0, 6.3); ctx.fill();
+      },
+    });
+  </script>
+</body>
+</html>

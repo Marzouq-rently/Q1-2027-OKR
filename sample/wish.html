@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wish Banner · Style Sample</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cinzel+Decorative:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Zen+Maru+Gothic:wght@400;700&family=M+PLUS+Rounded+1c:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="common.css">
+  <script src="../fonts.js"></script>
+  <script src="common.js"></script>
+  <style>
+    body {
+      background:
+        radial-gradient(ellipse 50% 40% at 25% 30%, rgba(120, 70, 200, 0.35), transparent 70%),
+        radial-gradient(ellipse 45% 40% at 80% 70%, rgba(40, 110, 200, 0.3), transparent 70%),
+        radial-gradient(ellipse at 50% 50%, #1b1d4a 0%, #0c0e2a 60%, #05061a 100%);
+    }
+    /* Shooting star: a bright head with a long tail, then a golden burst where it lands */
+    .meteor {
+      position: fixed; left: 50%; top: 50%;
+      width: calc(900px * var(--scale)); height: calc(6px * var(--scale));
+      transform-origin: right center;
+      background: linear-gradient(90deg, transparent, rgba(255, 230, 160, 0.4) 60%, #fff6d8 96%, #fff);
+      border-radius: 999px;
+      filter: drop-shadow(0 0 calc(10px * var(--scale)) #ffd77a);
+      opacity: 0;
+      animation: w-meteor 9s cubic-bezier(0.4, 0, 0.8, 0.6) 0.2s infinite;
+    }
+    @keyframes w-meteor {
+      0%   { opacity: 0; transform: translate(calc(-1500px * var(--scale)), calc(-319px * var(--scale))) rotate(28deg); }
+      2%   { opacity: 1; }
+      13%  { opacity: 1; transform: translate(calc(-900px * var(--scale)), 0px) rotate(28deg); }
+      15%, 100% { opacity: 0; transform: translate(calc(-860px * var(--scale)), calc(21px * var(--scale))) rotate(28deg); }
+    }
+    .burst {
+      position: fixed; left: 50%; top: 50%;
+      width: calc(1400px * var(--scale)); height: calc(1400px * var(--scale));
+      margin: calc(-700px * var(--scale)) 0 0 calc(-700px * var(--scale));
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 236, 180, 0.85) 0, rgba(255, 200, 90, 0.4) 18%, rgba(255, 190, 80, 0) 50%);
+      opacity: 0;
+      animation: w-burst 9s ease-out 0.2s infinite;
+    }
+    @keyframes w-burst {
+      0%, 13% { opacity: 0; transform: scale(0.1); }
+      16% { opacity: 1; transform: scale(0.6); }
+      30% { opacity: 0.35; transform: scale(1); }
+      45%, 100% { opacity: 0.25; transform: scale(1); }
+    }
+    .rays {
+      position: fixed; left: 50%; top: 50%;
+      width: calc(1800px * var(--scale)); height: calc(1800px * var(--scale));
+      margin: calc(-900px * var(--scale)) 0 0 calc(-900px * var(--scale));
+      background: repeating-conic-gradient(rgba(255, 220, 140, 0.09) 0 4deg, transparent 4deg 15deg);
+      -webkit-mask: radial-gradient(circle, #000 10%, transparent 60%);
+      mask: radial-gradient(circle, #000 10%, transparent 60%);
+      animation: s-spin 80s linear infinite, s-fade 1.5s 1.4s both;
+    }
+
+    /* ---------- Content ---------- */
+    .safe { display: flex; flex-direction: column; align-items: center; padding-top: 56px; }
+    .heading { text-align: center; animation: s-drop 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 1.2s both; }
+    .kicker {
+      margin: 0;
+      font-family: var(--font-heading); font-weight: 700;
+      font-size: 26px; letter-spacing: 0.4em; margin-right: -0.4em; text-transform: uppercase;
+      color: #c9b8ff;
+    }
+    h1 {
+      margin: 6px 0 14px;
+      font-family: var(--font-heading); font-weight: 700;
+      font-size: 96px; line-height: 1.05;
+      background: linear-gradient(180deg, #fff7e2 0%, #ecd7a8 45%, #b8945a 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      filter: drop-shadow(0 0 28px rgba(255, 210, 120, 0.4));
+    }
+
+    .pulls { display: flex; gap: 46px; margin-top: 44px; align-items: flex-end; }
+    .pull {
+      --c1: #4a7fd0; --c2: #1b2f66; --glow: rgba(90, 150, 255, 0.6);
+      position: relative;
+      width: 380px; height: 520px;
+      padding: 0 30px 40px;
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+      text-align: center;
+      background: linear-gradient(180deg, var(--c2) 0%, var(--c1) 100%);
+      border: 3px solid rgba(255, 255, 255, 0.75);
+      border-radius: 190px 190px 18px 18px;
+      box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.08), 0 0 60px var(--glow), inset 0 -60px 80px rgba(255, 255, 255, 0.18);
+      overflow: hidden;
+      animation: w-flip 0.8s cubic-bezier(0.2, 0.8, 0.3, 1.2) both;
+    }
+    .pull.r5 { --c1: #e0a84a; --c2: #5a3a12; --glow: rgba(255, 200, 90, 0.85); height: 580px; }
+    .pull.r4 { --c1: #9a6ae0; --c2: #31185e; --glow: rgba(170, 120, 255, 0.7); }
+    .pull:nth-child(1) { animation-delay: 1.7s; }
+    .pull:nth-child(2) { animation-delay: 1.5s; }
+    .pull:nth-child(3) { animation-delay: 1.9s; }
+    @keyframes w-flip { from { opacity: 0; transform: translateY(60px) rotateY(80deg); } to { opacity: 1; transform: none; } }
+    .pull::after {
+      /* sheen sweeping over the card */
+      content: ""; position: absolute; top: -20%; bottom: -20%; width: 40%; left: -60%;
+      background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+      transform: skewX(-15deg);
+      animation: w-sheen 5s ease-in-out 3s infinite;
+    }
+    @keyframes w-sheen { 0% { left: -60%; } 35%, 100% { left: 130%; } }
+    .emblem {
+      position: absolute; left: 50%; top: 70px;
+      width: 200px; height: 200px; margin-left: -100px;
+      display: grid; place-items: center;
+      color: rgba(255, 255, 255, 0.92);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.28), transparent 70%);
+      animation: w-pulse 3.2s ease-in-out infinite;
+    }
+    .r5 .emblem { top: 90px; }
+    .emblem svg { width: 120px; height: 120px; filter: drop-shadow(0 0 12px var(--glow)); }
+    @keyframes w-pulse { 50% { transform: scale(1.07); } }
+    .stars { display: flex; gap: 6px; justify-content: center; margin-bottom: 16px; }
+    .star {
+      width: 34px; height: 34px;
+      background: #ffd36b;
+      clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+      filter: drop-shadow(0 0 4px rgba(255, 200, 80, 0.9));
+      animation: w-star 0.4s ease-out both;
+    }
+    @keyframes w-star { from { opacity: 0; transform: scale(2); } }
+    .pull h2 {
+      margin: 0 0 10px;
+      font-family: var(--font-heading); font-weight: 700;
+      font-size: 34px; line-height: 1.2; color: #fff;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    }
+    .pull p { margin: 0; font-size: 23px; line-height: 1.45; color: #fff; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7); }
+    .rarity {
+      margin-bottom: 10px;
+      font-weight: 700; font-size: 18px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: #fff; background: rgba(0, 0, 0, 0.35); padding: 6px 16px; border-radius: 999px;
+    }
+
+    .pity { width: 900px; margin-top: 36px; animation: s-fade 1s 2.4s both; }
+    .pity .row { display: flex; justify-content: space-between; font-weight: 700; font-size: 24px; color: #e8e0ff; }
+    .pity .track { margin-top: 10px; height: 14px; background: rgba(255, 255, 255, 0.12); border-radius: 999px; overflow: hidden; border: 1px solid rgba(211, 188, 142, 0.5); }
+    .pity .fill { height: 100%; width: 78%; background: linear-gradient(90deg, #9a6ae0, #ffd36b); border-radius: inherit; transform-origin: left; animation: w-fill 1.4s cubic-bezier(0.2, 0.7, 0.2, 1) 2.6s both; }
+    @keyframes w-fill { from { transform: scaleX(0); } }
+    .footer {
+      position: absolute; bottom: 28px; left: 0; right: 0; text-align: center;
+      font-weight: 700; font-size: 22px; letter-spacing: 0.3em; color: #d3bc8e;
+      animation: s-fade 1s 2.6s both;
+    }
+  </style>
+</head>
+<body>
+  <canvas class="fx" id="sky" aria-hidden="true"></canvas>
+  <div class="bg">
+    <div class="rays"></div>
+    <div class="burst"></div>
+    <div class="meteor"></div>
+  </div>
+
+  <main class="safe">
+    <div class="heading">
+      <p class="kicker">Event Wish · The Quarter's Fortune</p>
+      <h1>Wish Results</h1>
+      <div class="divider"><span class="line"></span><span class="gem"></span><span class="line"></span></div>
+    </div>
+    <div class="pulls">
+      <article class="pull r4">
+        <div class="emblem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 2l3 6 6 1-4.5 4.5L18 20l-6-3-6 3 1.5-6.5L3 9l6-1z"/></svg></div>
+        <span class="rarity">4-Star</span>
+        <div class="stars"><i class="star" style="animation-delay:2.3s"></i><i class="star" style="animation-delay:2.35s"></i><i class="star" style="animation-delay:2.4s"></i><i class="star" style="animation-delay:2.45s"></i></div>
+        <h2>Faster Releases</h2>
+        <p>Weekly deploys for every team service.</p>
+      </article>
+      <article class="pull r5">
+        <div class="emblem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></div>
+        <span class="rarity">5-Star Objective</span>
+        <div class="stars"><i class="star" style="animation-delay:2.1s"></i><i class="star" style="animation-delay:2.15s"></i><i class="star" style="animation-delay:2.2s"></i><i class="star" style="animation-delay:2.25s"></i><i class="star" style="animation-delay:2.3s"></i></div>
+        <h2>Zero Critical Incidents</h2>
+        <p>Keep production stable for the whole quarter.</p>
+      </article>
+      <article class="pull r3">
+        <div class="emblem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M4 5c3-1 6-1 8 1 2-2 5-2 8-1v14c-3-1-6-1-8 1-2-2-5-2-8-1z"/><path d="M12 6v14"/></svg></div>
+        <span class="rarity">3-Star</span>
+        <div class="stars"><i class="star" style="animation-delay:2.5s"></i><i class="star" style="animation-delay:2.55s"></i><i class="star" style="animation-delay:2.6s"></i></div>
+        <h2>Tidy Docs</h2>
+        <p>Refresh the onboarding guide.</p>
+      </article>
+    </div>
+    <div class="pity">
+      <div class="row"><span>Key results pulled</span><span>7 / 9</span></div>
+      <div class="track"><div class="fill"></div></div>
+    </div>
+    <div class="footer">Q1 2027 · Protons Team</div>
+  </main>
+
+  <script>
+    // Twinkling starfield with a slow drift
+    const R = Sample.rand;
+    Sample.particles(document.getElementById("sky"), {
+      count: 160,
+      create(p, w, h, s) {
+        p.x = R(0, w); p.y = R(0, h);
+        p.r = R(0.5, 1.8) * Math.max(s, 0.5);
+        p.ph = R(0, 6.3); p.sp = R(0.6, 2);
+        p.gold = Math.random() < 0.15;
+      },
+      step(p, dt, w, h, s) {
+        p.x += 3 * s * dt;
+        if (p.x > w) p.x = 0;
+        return true;
+      },
+      draw(ctx, p, s, t) {
+        const a = 0.35 + 0.65 * (0.5 + 0.5 * Math.sin(t * p.sp + p.ph));
+        ctx.fillStyle = p.gold ? `rgba(255, 220, 150, ${a})` : `rgba(235, 235, 255, ${a})`;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.3); ctx.fill();
+      },
+    });
+  </script>
+</body>
+</html>

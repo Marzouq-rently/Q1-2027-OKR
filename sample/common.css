@@ -1,0 +1,137 @@
+/* Shared base for the style samples (sample/*.html).
+   Separate from the presentation: nothing in the deck loads this file.
+
+   Layout model (same idea as deck.js fit() + .safe in styles.css):
+   - The body / .bg layers fill the whole window at any shape.
+   - .safe is a 1920x1080 design box, centred and scaled by --scale
+     (set by common.js) so it always fits inside the window. */
+
+@font-face {
+  font-family: "HYWenHei 85W";
+  src: local("HYWenHei-85W"), local("HYWenHei 85W"), local("汉仪文黑-85W"),
+       url("../fonts/HYWenHei-85W.ttf") format("truetype");
+  font-display: swap;
+}
+
+:root {
+  --scale: 1;
+  /* Defaults; common.js overwrites these from ../fonts.js (GENSHIN_FONTS). */
+  --font-title: 'Cinzel Decorative', serif;
+  --font-heading: 'Cinzel', serif;
+  --font-ui: 'HYWenHei 85W', 'Noto Sans SC', sans-serif;
+  --font-ui-alt-zen-maru: 'Zen Maru Gothic', sans-serif;
+  --font-body: 'HYWenHei 85W', 'Zen Maru Gothic', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  position: relative;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Full-window decoration layers */
+.bg, .fx {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+.fx { width: 100%; height: 100%; display: block; }
+
+/* A band of scenery anchored to the window bottom, sized in design pixels.
+   Set --band-h (design px) on the element. */
+.band {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(var(--band-h, 300px) * var(--scale));
+  pointer-events: none;
+}
+.band svg { width: 100%; height: 100%; display: block; }
+
+/* 1920x1080 safe area */
+.safe {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 1920px;
+  height: 1080px;
+  transform: translate(-50%, -50%) scale(var(--scale));
+}
+
+/* Back-to-gallery link (inserted by common.js; hidden inside gallery previews) */
+.back-link {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 100;
+  padding: 8px 16px 8px 12px;
+  font: 700 15px/1 'Zen Maru Gothic', sans-serif;
+  color: #ece5d8;
+  text-decoration: none;
+  background: rgba(13, 17, 36, 0.72);
+  border: 1px solid rgba(211, 188, 142, 0.7);
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s, color 0.2s;
+}
+.back-link:hover, .back-link:focus-visible {
+  background: #ece5d8;
+  color: #262b3e;
+  outline: none;
+}
+.is-preview .back-link { display: none; }
+
+/* Shared gold divider: line, gem, line */
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  color: var(--div-color, #d3bc8e);
+}
+.divider .line {
+  width: 240px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, currentColor);
+}
+.divider .line:last-child { background: linear-gradient(270deg, transparent, currentColor); }
+.divider .gem {
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+
+/* Generic entrance keyframes the samples share */
+@keyframes s-rise {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes s-drop {
+  from { opacity: 0; transform: translateY(-30px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes s-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes s-spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

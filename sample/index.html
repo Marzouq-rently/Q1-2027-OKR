@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Style Gallery · Q1 2027 OKR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cinzel+Decorative:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Zen+Maru+Gothic:wght@400;700&family=M+PLUS+Rounded+1c:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+  <script src="../fonts.js"></script>
+  <style>
+    :root {
+      --night: #0d1124; --bg: #1c2030; --card: #262b3e; --text: #ece5d8;
+      --muted: #b3ad9f; --gold: #d3bc8e; --gold-deep: #b8945a; --border: #3a4058;
+      --font-heading: 'Cinzel', serif;
+      --font-body: 'HYWenHei 85W', 'Zen Maru Gothic', sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--night); }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: var(--font-body);
+      background: radial-gradient(ellipse at 50% 0%, #2f3a66 0%, #1a2142 30%, #0d1124 65%, #070912 100%) fixed;
+      -webkit-font-smoothing: antialiased;
+    }
+    .stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+    .star {
+      position: absolute; width: var(--s); height: var(--s); border-radius: 50%;
+      background: #fff6e0; opacity: 0.25;
+      animation: g-twinkle var(--d) ease-in-out var(--dl) infinite;
+    }
+    @keyframes g-twinkle { 50% { opacity: 0.9; } }
+
+    .wrap { position: relative; z-index: 1; max-width: 1560px; margin: 0 auto; padding: 56px 32px 80px; }
+    header { text-align: center; }
+    .kicker {
+      margin: 0; font-family: var(--font-body); font-weight: 700;
+      font-size: 14px; letter-spacing: 0.45em; margin-right: -0.45em; text-transform: uppercase; color: var(--gold);
+    }
+    h1 {
+      margin: 10px 0 14px;
+      font-family: var(--font-heading); font-weight: 700;
+      font-size: clamp(36px, 6vw, 68px); line-height: 1.1;
+      background: linear-gradient(180deg, #fff7e2 0%, #ecd7a8 45%, #b8945a 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      filter: drop-shadow(0 0 22px rgba(211, 188, 142, 0.3));
+    }
+    .divider { display: flex; align-items: center; justify-content: center; gap: 14px; }
+    .divider .line { width: min(200px, 28vw); height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); }
+    .divider .line:last-child { background: linear-gradient(270deg, transparent, var(--gold)); }
+    .divider .gem { width: 10px; height: 10px; border: 1.5px solid var(--gold); transform: rotate(45deg); }
+    .intro { max-width: 760px; margin: 18px auto 0; font-size: 17px; line-height: 1.6; color: var(--muted); }
+
+    .filters { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin: 30px 0 34px; }
+    .filters button {
+      font: 700 15px/1 var(--font-body);
+      padding: 10px 20px;
+      color: var(--text); background: rgba(38, 43, 62, 0.8);
+      border: 1px solid var(--border); border-radius: 999px; cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .filters button:hover { border-color: var(--gold); }
+    .filters button[aria-pressed="true"] { background: var(--text); color: var(--card); border-color: var(--text); }
+    .filters button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr)); gap: 28px; }
+    .item {
+      display: block;
+      color: inherit; text-decoration: none;
+      background: linear-gradient(180deg, rgba(38, 43, 62, 0.92), rgba(28, 32, 48, 0.92));
+      border: 1px solid rgba(211, 188, 142, 0.45);
+      border-radius: 10px;
+      box-shadow: inset 0 0 0 4px rgba(13, 17, 36, 0.5), inset 0 0 0 5px rgba(211, 188, 142, 0.15), 0 18px 40px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+      animation: g-rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    }
+    .item:hover, .item:focus-visible {
+      transform: translateY(-4px);
+      border-color: var(--gold);
+      box-shadow: inset 0 0 0 4px rgba(13, 17, 36, 0.5), inset 0 0 0 5px rgba(211, 188, 142, 0.3), 0 22px 50px rgba(0, 0, 0, 0.45), 0 0 30px rgba(211, 188, 142, 0.2);
+      outline: none;
+    }
+    .item[hidden] { display: none; }
+    @keyframes g-rise { from { opacity: 0; transform: translateY(24px); } }
+    .preview {
+      position: relative;
+      margin: 10px 10px 0;
+      aspect-ratio: 16 / 9;
+      border-radius: 6px;
+      overflow: hidden;
+      background: var(--swatch, #111);
+      border: 1px solid rgba(211, 188, 142, 0.25);
+    }
+    .preview iframe {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      border: 0; pointer-events: none;
+    }
+    .preview .loading {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      font-family: var(--font-heading); font-weight: 700; font-size: 18px; letter-spacing: 0.2em;
+      color: rgba(255, 255, 255, 0.85); text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+    }
+    .meta { padding: 18px 22px 22px; }
+    .meta .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .meta h2 { margin: 0; font-family: var(--font-heading); font-weight: 700; font-size: 24px; color: var(--gold); }
+    .tag {
+      flex: none;
+      font-weight: 700; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 5px 10px; border-radius: 999px;
+      border: 1px solid var(--border); color: var(--muted);
+    }
+    .tag.light { background: #ece5d8; color: #3b4255; border-color: #ece5d8; }
+    .meta p { margin: 8px 0 0; font-size: 15.5px; line-height: 1.55; color: #d5cfc2; }
+    .meta .open { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; font-weight: 700; font-size: 14px; color: var(--text); }
+    .meta .open::before {
+      content: ""; width: 22px; height: 22px; border-radius: 50%;
+      background: var(--text) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23262b3e' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6-6 6'/%3E%3C/svg%3E") center / 14px no-repeat;
+    }
+    footer { margin-top: 50px; text-align: center; font-size: 14px; color: var(--muted); }
+    footer a { color: var(--gold); }
+
+    @media (max-width: 600px) {
+      .wrap { padding: 36px 16px 60px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .star, .item { animation: none; }
+      .item { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" id="stars" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <header>
+      <p class="kicker">Q1 2027 OKR · Protons Team</p>
+      <h1>Teyvat Style Gallery</h1>
+      <div class="divider"><span class="line"></span><span class="gem"></span><span class="line"></span></div>
+      <p class="intro">Ten Genshin Impact themed looks for future slides. Each one is a full 1920×1080 sample slide with placeholder OKR content and its own ambient animation. Click a card to open it full screen.</p>
+    </header>
+
+    <div class="filters" role="group" aria-label="Filter styles">
+      <button type="button" data-filter="all" aria-pressed="true">All</button>
+      <button type="button" data-filter="light" aria-pressed="false">Bright</button>
+      <button type="button" data-filter="dark" aria-pressed="false">Dark</button>
+    </div>
+
+    <div class="grid" id="grid"></div>
+
+    <footer>Samples only: they are not part of the presentation. <a href="../index.html">Open the deck</a></footer>
+  </div>
+
+  <script>
+    const SAMPLES = [
+      { file: "mondstadt.html", name: "Mondstadt", tone: "light", swatch: "linear-gradient(#4fa9de,#d4effa 70%,#6fbf7a)",
+        desc: "Bright daytime sky with drifting clouds, wind streaks, floating dandelion seeds and a turning windmill. White and teal objective cards with progress bars." },
+      { file: "liyue.html", name: "Liyue", tone: "light", swatch: "linear-gradient(#f6e4bd,#d98a5a 60%,#4a1a18)",
+        desc: "Warm dusk over layered stone pillars, with drifting mist and rising sky lanterns. Crimson lacquer Key Results panel with seal stamps and gold bars." },
+      { file: "inazuma.html", name: "Inazuma", tone: "dark", swatch: "linear-gradient(#120a26,#5a3184 70%,#1a0d36)",
+        desc: "Violet night with falling sakura and lightning flashes over a torii in the sea. Left-aligned objective list with status tags." },
+      { file: "sumeru.html", name: "Sumeru", tone: "dark", swatch: "radial-gradient(at 50% 0,#6fbf63,#145236 60%,#0a2e20)",
+        desc: "Rainforest light rays, glowing dendro motes, falling leaves and glowing mushrooms. Key Results shown as animated progress rings." },
+      { file: "fontaine.html", name: "Fontaine", tone: "dark", swatch: "linear-gradient(#9ad3ee,#2f74b0 55%,#0a2c55)",
+        desc: "Underwater blues with moving caustics, a rippling surface and rising bubbles. Belle Époque gold-framed Mission and Vision panels." },
+      { file: "natlan.html", name: "Natlan", tone: "dark", swatch: "linear-gradient(#2a0906,#c2441a 65%,#1e0604)",
+        desc: "Volcanic sunset with rising embers and a spinning tribal sun ring. Bold slanted stat blocks and a segmented momentum bar." },
+      { file: "snezhnaya.html", name: "Snezhnaya", tone: "light", swatch: "linear-gradient(#dcebf7,#eef6fc 40%,#b4d0e8)",
+        desc: "Pale icy sky with snowfall, frost sparkles and slowly turning snowflakes over ice peaks. A quarter roadmap timeline with month cards." },
+      { file: "wish.html", name: "Wish Banner", tone: "dark", swatch: "radial-gradient(#1b1d4a,#05061a)",
+        desc: "A shooting star lands in a gold burst, then 4-star, 5-star and 3-star result cards flip in with a sheen. Starfield and a key-results \"pity\" bar." },
+      { file: "handbook.html", name: "Adventurer's Handbook", tone: "light", swatch: "linear-gradient(#efe7d6,#f4efe3)",
+        desc: "Cream parchment menu UI: side tabs, a quest list and a detail pane with a key-result checklist. Golden dust motes and a slow compass watermark." },
+      { file: "celestia.html", name: "Celestia", tone: "light", swatch: "radial-gradient(#fff,#e8d5ab)",
+        desc: "Heavenly white and gold title slide: rotating halo rings, light rays, floating islands and a metallic gold \"Q1 2027\" with a moving sheen." },
+    ];
+
+    const grid = document.getElementById("grid");
+    SAMPLES.forEach((s, i) => {
+      const a = document.createElement("a");
+      a.className = "item";
+      a.href = s.file;
+      a.dataset.tone = s.tone;
+      a.style.animationDelay = `${0.05 * i}s`;
+      a.innerHTML = `
+        <div class="preview" style="--swatch:${s.swatch}">
+          <span class="loading">${s.name}</span>
+        </div>
+        <div class="meta">
+          <div class="top"><h2>${s.name}</h2><span class="tag ${s.tone}">${s.tone === "light" ? "Bright" : "Dark"}</span></div>
+          <p>${s.desc}</p>
+          <span class="open">Open sample</span>
+        </div>`;
+      grid.appendChild(a);
+    });
+
+    // Live previews: load each iframe only while its card is near the viewport,
+    // and unload it again when it scrolls far away, so only a few run at once.
+    const io = new IntersectionObserver(entries => {
+      for (const e of entries) {
+        const box = e.target;
+        const file = box.parentElement.getAttribute("href");
+        let frame = box.querySelector("iframe");
+        if (e.isIntersecting && !frame) {
+          frame = document.createElement("iframe");
+          frame.src = `${file}?preview`;
+          frame.title = `${file} preview`;
+          frame.tabIndex = -1;
+          frame.setAttribute("aria-hidden", "true");
+          box.appendChild(frame);
+        } else if (!e.isIntersecting && frame) {
+          frame.remove();
+        }
+      }
+    }, { rootMargin: "200px 0px" });
+    document.querySelectorAll(".preview").forEach(p => io.observe(p));
+
+    // Filters
+    const buttons = document.querySelectorAll(".filters button");
+    buttons.forEach(b => b.addEventListener("click", () => {
+      buttons.forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+      const f = b.dataset.filter;
+      document.querySelectorAll(".item").forEach(it => { it.hidden = f !== "all" && it.dataset.tone !== f; });
+    }));
+
+    // A light sprinkle of twinkling stars (CSS only)
+    const stars = document.getElementById("stars");
+    for (let i = 0; i < 70; i++) {
+      const st = document.createElement("span");
+      st.className = "star";
+      st.style.cssText = `left:${Math.random() * 100}%;top:${Math.random() * 100}%;--s:${(Math.random() * 2 + 1).toFixed(1)}px;--d:${(Math.random() * 4 + 3).toFixed(1)}s;--dl:${(-Math.random() * 6).toFixed(1)}s`;
+      stars.appendChild(st);
+    }
+  </script>
+</body>
+</html>

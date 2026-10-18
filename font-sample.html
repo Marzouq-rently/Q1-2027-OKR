@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Font Sample</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cinzel+Decorative:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Zen+Maru+Gothic:wght@400;700&family=M+PLUS+Rounded+1c:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* HYWenHei is commercial: use a system install, or a licensed file in fonts/ */
+    @font-face {
+      font-family: "HYWenHei 85W";
+      src: local("HYWenHei-85W"), local("HYWenHei 85W"), local("汉仪文黑-85W"),
+           url("fonts/HYWenHei-85W.ttf") format("truetype");
+      font-display: swap;
+    }
+
+    :root {
+      --bg: #f4efe3;
+      --card: #fffaf0;
+      --text: #3b4255;
+      --muted: #7a7466;
+      --gold: #b8945a;
+      --border: #e2d6bd;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1c2030;
+        --card: #262b3e;
+        --text: #ece5d8;
+        --muted: #a39d8f;
+        --gold: #d3bc8e;
+        --border: #3a4058;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 32px 16px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Noto Sans SC", sans-serif;
+    }
+    main { max-width: 900px; margin: 0 auto; }
+    h1 {
+      font-family: "Cinzel Decorative", serif;
+      color: var(--gold);
+      text-align: center;
+      margin: 0 0 8px;
+    }
+    .intro { text-align: center; color: var(--muted); margin: 0 0 24px; }
+    .controls {
+      display: flex; flex-wrap: wrap; gap: 12px;
+      align-items: center; justify-content: center;
+      margin-bottom: 24px;
+    }
+    .controls input[type="text"] {
+      flex: 1 1 280px; max-width: 480px;
+      padding: 8px 12px; font: inherit;
+      border: 1px solid var(--border); border-radius: 8px;
+      background: var(--card); color: var(--text);
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--gold);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .card-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; justify-content: space-between; }
+    .card h2 { margin: 0; font-size: 1.1rem; }
+    .tag {
+      font-size: 0.75rem; padding: 2px 8px; border-radius: 999px;
+      border: 1px solid var(--gold); color: var(--gold);
+    }
+    .meta { color: var(--muted); font-size: 0.85rem; margin: 6px 0 12px; }
+    .meta code { font-size: 0.8rem; }
+    .status { font-size: 0.8rem; margin-bottom: 12px; }
+    .sample-big { font-size: 2.2rem; line-height: 1.25; margin: 0 0 8px; overflow-wrap: anywhere; }
+    .sample { font-size: 1.1rem; margin: 4px 0; overflow-wrap: anywhere; }
+    .bold { font-weight: 700; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Font Sample</h1>
+    <p class="intro">Fonts for the Genshin Impact themed presentation</p>
+
+    <div class="controls">
+      <input id="customText" type="text" placeholder="Type your own preview text…">
+      <label>Size <input id="sizeRange" type="range" min="16" max="72" value="35"></label>
+    </div>
+
+    <div id="fontList"></div>
+  </main>
+
+  <script src="fonts.js"></script>
+  <script>
+    const DEFAULT_TEXT = "Ad Astra Abyssosque — Welcome to Teyvat";
+    const list = document.getElementById("fontList");
+    const customText = document.getElementById("customText");
+    const sizeRange = document.getElementById("sizeRange");
+
+    function render() {
+      list.innerHTML = "";
+      GENSHIN_FONTS.forEach(font => {
+        const card = document.createElement("section");
+        card.className = "card";
+        card.innerHTML = `
+          <div class="card-head">
+            <h2>${font.name}</h2>
+            <span class="tag">${font.official ? "Used in game" : "Stand-in"}</span>
+          </div>
+          <p class="meta">${font.role}<br>Source: ${font.source}<br>CSS: <code>font-family: ${font.cssFamily};</code></p>
+          <p class="status" data-status></p>
+          <div style="font-family: ${font.cssFamily}">
+            <p class="sample-big" data-preview></p>
+            <p class="sample">ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+            <p class="sample">abcdefghijklmnopqrstuvwxyz 0123456789</p>
+            <p class="sample bold">Bold: Paimon is not emergency food!</p>
+            <p class="sample">中文：原神 · 提瓦特大陆</p>
+          </div>`;
+        list.appendChild(card);
+        checkLoaded(font, card.querySelector("[data-status]"));
+      });
+      updatePreview();
+    }
+
+    function updatePreview() {
+      const text = customText.value.trim() || DEFAULT_TEXT;
+      document.querySelectorAll("[data-preview]").forEach(el => {
+        el.textContent = text;
+        el.style.fontSize = sizeRange.value + "px";
+      });
+    }
+
+    // Tells you whether the real font loaded or the browser fell back
+    async function checkLoaded(font, el) {
+      const family = `"${font.name}"`;
+      try {
+        await document.fonts.load(`16px ${family}`);
+      } catch (e) { /* ignore, check below */ }
+      const ok = document.fonts.check(`16px ${family}`);
+      el.textContent = ok ? "✔ Font loaded" : "✘ Not available — showing fallback font";
+      el.style.color = ok ? "var(--gold)" : "#c0504d";
+    }
+
+    customText.addEventListener("input", updatePreview);
+    sizeRange.addEventListener("input", updatePreview);
+    document.fonts.ready.then(render);
+  </script>
+</body>
+</html>

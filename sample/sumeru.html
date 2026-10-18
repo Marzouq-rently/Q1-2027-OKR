@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sumeru · Style Sample</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cinzel+Decorative:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Zen+Maru+Gothic:wght@400;700&family=M+PLUS+Rounded+1c:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="common.css">
+  <script src="../fonts.js"></script>
+  <script src="common.js"></script>
+  <style>
+    body {
+      background: radial-gradient(ellipse at 50% 0%, #6fbf63 0%, #2f8048 30%, #145236 62%, #0a2e20 100%);
+    }
+    /* Sun rays filtering through the canopy */
+    .rays {
+      position: fixed; left: 50%; top: calc(-200px * var(--scale));
+      width: calc(2600px * var(--scale)); height: calc(1700px * var(--scale));
+      margin-left: calc(-1300px * var(--scale));
+      background: repeating-conic-gradient(from 160deg at 50% 0%,
+        rgba(240, 255, 200, 0.16) 0deg 3deg, transparent 3deg 9deg, rgba(240, 255, 200, 0.08) 9deg 11deg, transparent 11deg 16deg);
+      -webkit-mask: radial-gradient(ellipse at 50% 0%, #000 20%, transparent 70%);
+      mask: radial-gradient(ellipse at 50% 0%, #000 20%, transparent 70%);
+      animation: su-rays 12s ease-in-out infinite alternate;
+    }
+    @keyframes su-rays { from { opacity: 0.6; transform: rotate(-2deg); } to { opacity: 1; transform: rotate(2deg); } }
+
+    .canopy {
+      position: fixed; left: 0; right: 0; top: 0;
+      height: calc(230px * var(--scale));
+      pointer-events: none;
+    }
+    .canopy svg { width: 100%; height: 100%; display: block; }
+    .vine { transform-origin: top; animation: su-sway 6s ease-in-out infinite alternate; }
+    .vine:nth-of-type(2n) { animation-delay: -3s; }
+    @keyframes su-sway { from { transform: rotate(-1.5deg); } to { transform: rotate(1.5deg); } }
+
+    .band { --band-h: 300px; }
+    .shroom { filter: drop-shadow(0 0 14px rgba(140, 240, 190, 0.9)); animation: su-pulse 3.2s ease-in-out infinite; }
+    .shroom:nth-of-type(2) { animation-delay: -1s; }
+    .shroom:nth-of-type(3) { animation-delay: -2s; }
+    @keyframes su-pulse { 50% { opacity: 0.55; } }
+
+    /* ---------- Content ---------- */
+    .safe { display: flex; flex-direction: column; align-items: center; padding-top: 150px; }
+    .heading { text-align: center; animation: s-drop 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s both; }
+    .kicker {
+      margin: 0;
+      font-family: var(--font-heading); font-weight: 700;
+      font-size: 28px; letter-spacing: 0.4em; margin-right: -0.4em; text-transform: uppercase;
+      color: #d9f59a;
+      text-shadow: 0 1px 6px rgba(0, 30, 10, 0.8);
+    }
+    h1 {
+      margin: 8px 0 16px;
+      font-family: var(--font-heading); font-weight: 700;
+      font-size: 104px; line-height: 1.05;
+      background: linear-gradient(180deg, #fbffe8 0%, #d9f59a 45%, #9fcf4a 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      filter: drop-shadow(0 4px 18px rgba(0, 30, 10, 0.7));
+    }
+    .divider { --div-color: #c4ea7a; }
+
+    .rings {
+      display: grid; grid-template-columns: repeat(3, 440px); gap: 50px;
+      margin-top: 70px;
+    }
+    .ring-card {
+      position: relative;
+      padding: 40px 36px 40px;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(14, 52, 34, 0.9), rgba(8, 36, 24, 0.92));
+      border: 2px solid rgba(196, 234, 122, 0.75);
+      border-radius: 200px 200px 24px 24px;
+      box-shadow: inset 0 0 0 6px rgba(8, 36, 24, 0.85), inset 0 0 0 7px rgba(196, 234, 122, 0.3),
+                  0 24px 50px rgba(0, 20, 10, 0.5);
+      animation: s-rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    }
+    .ring-card:nth-child(1) { animation-delay: 0.45s; }
+    .ring-card:nth-child(2) { animation-delay: 0.65s; }
+    .ring-card:nth-child(3) { animation-delay: 0.85s; }
+    .ring { position: relative; width: 230px; height: 230px; margin: 0 auto 24px; }
+    .ring svg { width: 100%; height: 100%; transform: rotate(-90deg); overflow: visible; }
+    .ring .bgc { fill: none; stroke: rgba(196, 234, 122, 0.18); stroke-width: 14; }
+    .ring .val {
+      fill: none; stroke: url(#su-grad); stroke-width: 14; stroke-linecap: round;
+      stroke-dasharray: 597; stroke-dashoffset: calc(597 * (1 - var(--v)));
+      filter: drop-shadow(0 0 8px rgba(170, 240, 90, 0.8));
+      animation: su-ring 1.8s cubic-bezier(0.2, 0.7, 0.2, 1) 1.2s both;
+    }
+    @keyframes su-ring { from { stroke-dashoffset: 597; } }
+    .ring .num {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      font-weight: 700; font-size: 60px; color: #f4ffd8;
+    }
+    .ring .num small { font-size: 30px; }
+    .ring::before {
+      /* softly pulsing dendro glow behind the ring */
+      content: ""; position: absolute; inset: 20px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(160, 240, 90, 0.35), transparent 70%);
+      animation: su-glow 3.6s ease-in-out infinite;
+    }
+    @keyframes su-glow { 50% { transform: scale(1.18); opacity: 0.5; } }
+    .ring-card h2 {
+      margin: 0 0 10px;
+      font-family: var(--font-heading); font-weight: 700;
+      font-size: 32px; color: #e8f9c0;
+    }
+    .ring-card p { margin: 0; font-size: 25px; line-height: 1.5; color: #e1ecd6; }
+    .footer {
+      position: absolute; bottom: 44px; left: 0; right: 0; text-align: center;
+      font-weight: 700; font-size: 24px; letter-spacing: 0.3em; color: #e8f9c0;
+      text-shadow: 0 1px 6px rgba(0, 20, 10, 0.9);
+      animation: s-fade 1s 1.4s both;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg"><div class="rays"></div></div>
+
+  <!-- Hanging canopy across the top edge -->
+  <div class="canopy" aria-hidden="true">
+    <svg viewBox="0 0 3840 230" preserveAspectRatio="xMidYMin slice">
+      <path d="M0 0 H3840 V90 C3600 140 3400 70 3200 120 S2800 60 2600 110 S2200 40 1920 90 S1500 50 1300 110 S900 50 700 120 S300 60 0 110Z" fill="#0d3a26"/>
+      <g fill="none" stroke="#1d5a35" stroke-width="6" stroke-linecap="round">
+        <path class="vine" d="M1060 80 C1050 140 1070 180 1060 230"/>
+        <path class="vine" d="M1480 90 C1490 130 1470 170 1480 200"/>
+        <path class="vine" d="M2380 80 C2370 130 2390 170 2380 220"/>
+        <path class="vine" d="M2800 90 C2810 130 2790 160 2800 190"/>
+      </g>
+      <g fill="#2b7a43">
+        <ellipse cx="1060" cy="232" rx="14" ry="8"/><ellipse cx="2380" cy="222" rx="14" ry="8"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Forest floor with glowing mushrooms -->
+  <div class="band" aria-hidden="true">
+    <svg viewBox="0 0 3840 300" preserveAspectRatio="xMidYMax slice">
+      <path d="M0 160 C400 110 700 170 1100 140 S1700 100 1920 150 S2600 110 2900 150 S3500 100 3840 140 V300 H0Z" fill="#0f4129"/>
+      <g>
+        <g class="shroom"><rect x="1020" y="150" width="14" height="60" rx="6" fill="#cfe9c9"/><path d="M985 158 Q1027 100 1069 158Z" fill="#79e0c8"/></g>
+        <g class="shroom"><rect x="2830" y="140" width="16" height="70" rx="6" fill="#cfe9c9"/><path d="M2790 148 Q2838 84 2886 148Z" fill="#9cf08a"/></g>
+        <g class="shroom"><rect x="2920" y="170" width="10" height="40" rx="4" fill="#cfe9c9"/><path d="M2898 176 Q2925 140 2952 176Z" fill="#79e0c8"/></g>
+      </g>
+      <path d="M0 220 C500 190 900 230 1400 210 S2400 190 2900 215 S3500 200 3840 210 V300 H0Z" fill="#0a2e1d"/>
+    </svg>
+  </div>
+
+  <canvas class="fx" id="dendro" aria-hidden="true"></canvas>
+
+  <main class="safe">
+    <div class="heading">
+      <p class="kicker">Sumeru · Land of Wisdom</p>
+      <h1>Key Results</h1>
+      <div class="divider"><span class="line"></span><span class="gem"></span><span class="line"></span></div>
+    </div>
+    <svg width="0" height="0" style="position:absolute"><defs>
+      <linearGradient id="su-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e9ff9a"/><stop offset="1" stop-color="#4fd07a"/></linearGradient>
+    </defs></svg>
+    <div class="rings">
+      <article class="ring-card">
+        <div class="ring" style="--v:.76"><svg viewBox="0 0 230 230"><circle class="bgc" cx="115" cy="115" r="95"/><circle class="val" cx="115" cy="115" r="95"/></svg><div class="num"><span>76<small>%</small></span></div></div>
+        <h2>Documentation</h2>
+        <p>Every service has an up-to-date architecture page.</p>
+      </article>
+      <article class="ring-card">
+        <div class="ring" style="--v:.52"><svg viewBox="0 0 230 230"><circle class="bgc" cx="115" cy="115" r="95"/><circle class="val" cx="115" cy="115" r="95"/></svg><div class="num"><span>52<small>%</small></span></div></div>
+        <h2>Observability</h2>
+        <p>Dashboards and alerts cover all customer-facing APIs.</p>
+      </article>
+      <article class="ring-card">
+        <div class="ring" style="--v:.34"><svg viewBox="0 0 230 230"><circle class="bgc" cx="115" cy="115" r="95"/><circle class="val" cx="115" cy="115" r="95"/></svg><div class="num"><span>34<small>%</small></span></div></div>
+        <h2>Learning</h2>
+        <p>Each engineer completes two internal workshops.</p>
+      </article>
+    </div>
+    <div class="footer">Q1 2027 · Protons Team</div>
+  </main>
+
+  <script>
+    // Glowing dendro motes plus a few drifting leaves
+    const R = Sample.rand;
+    Sample.particles(document.getElementById("dendro"), {
+      count: 60,
+      create(p, w, h, s, first) {
+        p.leaf = Math.random() < 0.22;
+        p.x = R(0, w);
+        p.y = first ? R(0, h) : (p.leaf ? -20 * s : h + 20 * s);
+        p.r = (p.leaf ? R(10, 16) : R(2, 5)) * s;
+        p.vy = p.leaf ? R(30, 55) : -R(8, 22);
+        p.ph = R(0, 6.3); p.sp = R(0.6, 1.6);
+        p.rot = R(0, 6.3);
+      },
+      step(p, dt, w, h, s, t) {
+        p.y += p.vy * s * dt;
+        p.x += Math.sin(t * p.sp + p.ph) * (p.leaf ? 40 : 12) * s * dt;
+        p.rot += (p.leaf ? 1.2 : 0) * dt;
+        return p.leaf ? p.y < h + 30 * s : p.y > -30 * s;
+      },
+      draw(ctx, p, s, t) {
+        if (p.leaf) {
+          ctx.save();
+          ctx.translate(p.x, p.y); ctx.rotate(Math.sin(p.rot) * 1.2);
+          ctx.fillStyle = "rgba(120, 190, 80, 0.85)";
+          ctx.beginPath();
+          ctx.moveTo(0, -p.r);
+          ctx.quadraticCurveTo(p.r * 0.8, 0, 0, p.r);
+          ctx.quadraticCurveTo(-p.r * 0.8, 0, 0, -p.r);
+          ctx.fill();
+          ctx.strokeStyle = "rgba(40, 90, 40, 0.8)"; ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(0, -p.r); ctx.lineTo(0, p.r); ctx.stroke();
+          ctx.restore();
+          return;
+        }
+        const pulse = 0.6 + 0.4 * Math.sin(t * 2 * p.sp + p.ph);
+        const rr = p.r * (3 + pulse * 2);
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, rr);
+        g.addColorStop(0, `rgba(230, 255, 160, ${0.9 * pulse})`);
+        g.addColorStop(0.3, `rgba(150, 240, 90, ${0.45 * pulse})`);
+        g.addColorStop(1, "rgba(120, 220, 80, 0)");
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(p.x, p.y, rr, 0, 6.3); ctx.fill();
+      },
+    });
+  </script>
+</body>
+</html>

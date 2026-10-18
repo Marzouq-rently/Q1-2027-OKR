@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mondstadt · Style Sample</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cinzel+Decorative:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Zen+Maru+Gothic:wght@400;700&family=M+PLUS+Rounded+1c:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="common.css">
+  <script src="../fonts.js"></script>
+  <script src="common.js"></script>
+  <style>
+    body {
+      background: linear-gradient(180deg, #4fa9de 0%, #8fd0ef 38%, #d4effa 70%, #effaf0 100%);
+    }
+    .sun {
+      position: fixed; inset: 0;
+      background: radial-gradient(circle at 82% 8%, rgba(255, 252, 228, 0.95) 0, rgba(255, 246, 200, 0.55) 8%, rgba(255, 255, 255, 0) 32%);
+      animation: m-sun 8s ease-in-out infinite alternate;
+    }
+    @keyframes m-sun { from { opacity: 0.8; } to { opacity: 1; } }
+
+    /* Clouds: puffy shapes built from radial gradients, drifting across the full window */
+    .cloud {
+      position: absolute;
+      left: 0;
+      width: calc(var(--w) * var(--scale));
+      height: calc(var(--w) * 0.36 * var(--scale));
+      top: var(--top);
+      background:
+        radial-gradient(ellipse 30% 55% at 30% 60%, #fff 60%, transparent 62%),
+        radial-gradient(ellipse 26% 70% at 52% 45%, #fff 60%, transparent 62%),
+        radial-gradient(ellipse 24% 52% at 72% 62%, #fff 60%, transparent 62%),
+        radial-gradient(ellipse 48% 30% at 50% 78%, #fff 60%, transparent 62%);
+      filter: blur(calc(3px * var(--scale)));
+      opacity: var(--o, 0.9);
+      animation: m-drift var(--dur) linear var(--delay) infinite;
+    }
+    @keyframes m-drift {
+      from { transform: translateX(-40vw); }
+      to   { transform: translateX(110vw); }
+    }
+
+    /* Wind streaks: dashed paths that sweep along */
+    .wind { position: fixed; inset: 0; width: 100%; height: 100%; }
+    .wind path {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.85);
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-dasharray: 260 1400;
+      stroke-dashoffset: 1660;
+      animation: m-wind 7s ease-in-out infinite;
+    }
+    .wind path:nth-child(2) { animation-delay: 2.4s; stroke-width: 2; }
+    .wind path:nth-child(3) { animation-delay: 4.6s; }
+    @keyframes m-wind {
+      0% { stroke-dashoffset: 1660; opacity: 0; }
+      15% { opacity: 1; }
+      70% { opacity: 1; }
+      100% { stroke-dashoffset: 0; opacity: 0; }
+    }
+
+    .band { --band-h: 470px; }
+    .blades {
+      transform-origin: 1100px 150px;
+      animation: s-spin 14s linear infinite;
+    }
+    .grass { transform-origin: bottom; animation: m-sway 5s ease-in-out infinite alternate; }
+    @keyframes m-sway { from { transform: skewX(-2deg); } to { transform: skewX(2deg); } }
+
+    /* ---------- Content ---------- */
+    .safe { display: flex; flex-direction: column; align-items: center; padding-top: 86px; }
+    .kicker {
+      margin: 0;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: 0.4em;
+      margin-right: -0.4em;
+      text-transform: uppercase;
+      color: #17575a;
+    }
+    h1 {
+      margin: 10px 0 18px;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 104px;
+      line-height: 1.05;
+      color: #124547;
+      text-shadow: 0 2px 0 rgba(255, 255, 255, 0.9), 0 0 30px rgba(255, 255, 255, 0.9);
+    }
+    .divider { --div-color: #2e8c86; }
+    .heading { text-align: center; animation: s-drop 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s both; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 440px);
+      gap: 48px;
+      margin-top: 110px;
+    }
+    .card {
+      position: relative;
+      padding: 84px 38px 40px;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(240, 251, 248, 0.92));
+      border: 2px solid #4aa79d;
+      border-radius: 22px;
+      box-shadow: inset 0 0 0 6px rgba(255, 255, 255, 0.9), inset 0 0 0 7px rgba(74, 167, 157, 0.35),
+                  0 24px 50px rgba(30, 90, 110, 0.22);
+      display: flex;
+      flex-direction: column;
+      animation: s-rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    }
+    .card:nth-child(1) { animation-delay: 0.45s; }
+    .card:nth-child(2) { animation-delay: 0.65s; }
+    .card:nth-child(3) { animation-delay: 0.85s; }
+    .icon {
+      position: absolute;
+      left: 50%; top: -58px;
+      width: 116px; height: 116px; margin-left: -58px;
+      display: grid; place-items: center;
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 30%, #7fe0cf, #2b8f8a 75%);
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 3px #4aa79d, 0 10px 26px rgba(30, 110, 110, 0.35);
+      color: #fff;
+      animation: m-bob 4s ease-in-out infinite;
+    }
+    .card:nth-child(2) .icon { animation-delay: -1.3s; }
+    .card:nth-child(3) .icon { animation-delay: -2.6s; }
+    .icon svg { width: 56px; height: 56px; }
+    @keyframes m-bob { 50% { transform: translateY(-8px); } }
+    .num {
+      margin: 0 0 8px;
+      font-family: var(--font-body); /* not Cinzel: its "1" reads as "I" at small sizes */
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: 0.24em;
+      color: #2a7f78;
+    }
+    .card h2 {
+      margin: 0 0 16px;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 34px;
+      line-height: 1.2;
+      color: #143f42;
+    }
+    .card p {
+      margin: 0;
+      font-size: 26px;
+      line-height: 1.5;
+      color: #2c4446;
+    }
+    .bar { margin-top: auto; padding-top: 28px; text-align: left; }
+    .bar .label {
+      display: flex; justify-content: space-between;
+      font-size: 22px; font-weight: 700; color: #1f5f5b;
+    }
+    .bar .track {
+      margin-top: 8px; height: 14px;
+      background: #d7eeea; border-radius: 999px; overflow: hidden;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12);
+    }
+    .bar .fill {
+      height: 100%; width: var(--v);
+      background: linear-gradient(90deg, #3fb0a2, #8fe3c5);
+      border-radius: inherit;
+      transform-origin: left;
+      animation: m-fill 1.4s cubic-bezier(0.2, 0.7, 0.2, 1) 1.3s both;
+    }
+    @keyframes m-fill { from { transform: scaleX(0); } }
+    .footer {
+      position: absolute; bottom: 44px; left: 0; right: 0;
+      text-align: center;
+      font-family: var(--font-body); font-weight: 700;
+      font-size: 24px; letter-spacing: 0.3em;
+      color: #124547;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.95), 0 0 3px #fff;
+      animation: s-fade 1s 1.4s both;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg">
+    <div class="sun"></div>
+    <div class="cloud" style="--w:520px;--top:8%;--dur:120s;--delay:-20s"></div>
+    <div class="cloud" style="--w:380px;--top:22%;--dur:95s;--delay:-70s;--o:.8"></div>
+    <div class="cloud" style="--w:620px;--top:3%;--dur:150s;--delay:-110s;--o:.75"></div>
+    <div class="cloud" style="--w:300px;--top:34%;--dur:85s;--delay:-40s;--o:.7"></div>
+    <svg class="wind" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <path d="M-50 200 C 250 140, 420 260, 700 190 S 1050 120, 1200 200 q 60 40 20 80 q -40 30 -70 -10"/>
+      <path d="M200 420 C 500 360, 700 470, 1000 400 S 1400 330, 1700 380"/>
+      <path d="M-80 120 C 300 60, 600 150, 900 90 q 80 -20 90 40 q 0 50 -50 40"/>
+    </svg>
+  </div>
+
+  <!-- Hills and the windmill, anchored to the window bottom -->
+  <div class="band" aria-hidden="true">
+    <svg viewBox="0 0 3840 470" preserveAspectRatio="xMidYMax slice">
+      <path d="M0 300 C 500 200, 900 240, 1300 270 S 2200 180, 2700 240 S 3500 210, 3840 260 V470 H0Z" fill="#9fd8a0"/>
+      <!-- windmill on the far hill (left of centre) -->
+      <g transform="translate(180 60) scale(0.8)">
+        <path d="M1078 300 L1088 158 L1112 158 L1122 300Z" fill="#f6efe0" stroke="#a5866a" stroke-width="3"/>
+        <path d="M1074 162 L1100 128 L1126 162Z" fill="#c0634e"/>
+        <rect x="1094" y="250" width="12" height="22" rx="5" fill="#8a6a50"/>
+        <g class="blades">
+          <g fill="#fffaf0" stroke="#a5866a" stroke-width="3">
+            <path d="M1100 150 L1094 30 L1118 30 Z"/>
+            <path d="M1100 150 L1094 30 L1118 30 Z" transform="rotate(90 1100 150)"/>
+            <path d="M1100 150 L1094 30 L1118 30 Z" transform="rotate(180 1100 150)"/>
+            <path d="M1100 150 L1094 30 L1118 30 Z" transform="rotate(270 1100 150)"/>
+          </g>
+          <circle cx="1100" cy="150" r="9" fill="#a5866a"/>
+        </g>
+      </g>
+      <path d="M0 360 C 600 290, 1100 330, 1700 360 S 2900 300, 3840 340 V470 H0Z" fill="#6fbf7a"/>
+      <path class="grass" d="M0 410 C 700 370, 1400 400, 1920 420 S 3200 380, 3840 400 V470 H0Z" fill="#4ea463"/>
+    </svg>
+  </div>
+
+  <canvas class="fx" id="seeds" aria-hidden="true"></canvas>
+
+  <main class="safe">
+    <div class="heading">
+      <p class="kicker">Mondstadt · City of Freedom</p>
+      <h1>Objectives</h1>
+      <div class="divider"><span class="line"></span><span class="gem"></span><span class="line"></span></div>
+    </div>
+
+    <div class="cards">
+      <article class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4C11 4 6 10 5 19"/><path d="M20 4c0 8-5 12-12 12"/><path d="M5 19l-1 2"/></svg></div>
+        <p class="num">OBJECTIVE 1</p>
+        <h2>Ride the Winds of Delivery</h2>
+        <p>Ship the three priority features to production with zero critical incidents.</p>
+        <div class="bar" style="--v:72%"><div class="label"><span>Progress</span><span>72%</span></div><div class="track"><div class="fill"></div></div></div>
+      </article>
+      <article class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 9h11a3 3 0 1 0-3-3"/><path d="M3 14h15a3 3 0 1 1-3 3"/><path d="M3 19h6"/></svg></div>
+        <p class="num">OBJECTIVE 2</p>
+        <h2>Strengthen the Foundation</h2>
+        <p>Raise automated test coverage on core services to 80 percent.</p>
+        <div class="bar" style="--v:48%"><div class="label"><span>Progress</span><span>48%</span></div><div class="track"><div class="fill"></div></div></div>
+      </article>
+      <article class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5c3-1 6-1 8 1 2-2 5-2 8-1v14c-3-1-6-1-8 1-2-2-5-2-8-1z"/><path d="M12 6v14"/></svg></div>
+        <p class="num">OBJECTIVE 3</p>
+        <h2>Free the Flow of Knowledge</h2>
+        <p>Publish runbooks for every on-call service and review them monthly.</p>
+        <div class="bar" style="--v:30%"><div class="label"><span>Progress</span><span>30%</span></div><div class="track"><div class="fill"></div></div></div>
+      </article>
+    </div>
+    <div class="footer">Q1 2027 · Protons Team</div>
+  </main>
+
+  <script>
+    // Dandelion seeds drifting on the wind
+    const R = Sample.rand;
+    Sample.particles(document.getElementById("seeds"), {
+      count: 38,
+      create(p, w, h, s, first) {
+        p.x = first ? R(0, w) : R(-60, -10);
+        p.y = first ? R(0, h) : R(h * 0.2, h);
+        p.r = R(7, 14) * s;
+        p.vx = R(30, 70); p.vy = R(-22, -6);
+        p.ph = R(0, 6.3); p.rot = R(-0.5, 0.5); p.vr = R(-0.4, 0.4);
+        p.a = R(0.55, 0.95);
+      },
+      step(p, dt, w, h, s, t) {
+        p.x += (p.vx + Math.sin(t * 0.7 + p.ph) * 18) * s * dt;
+        p.y += (p.vy + Math.cos(t * 0.9 + p.ph) * 14) * s * dt;
+        p.rot += p.vr * dt;
+        return p.x < w + 60 && p.y > -60;
+      },
+      draw(ctx, p) {
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.globalAlpha = p.a;
+        ctx.strokeStyle = "#ffffff";
+        ctx.lineWidth = Math.max(0.6, p.r * 0.08);
+        ctx.beginPath();
+        for (let i = 0; i < 9; i++) {
+          const a = -Math.PI / 2 + (i - 4) * 0.32;
+          ctx.moveTo(0, 0);
+          ctx.lineTo(Math.cos(a) * p.r, Math.sin(a) * p.r);
+        }
+        ctx.moveTo(0, 0); ctx.lineTo(0, p.r * 1.2);
+        ctx.stroke();
+        ctx.fillStyle = "#b9a27a";
+        ctx.beginPath(); ctx.arc(0, p.r * 1.25, p.r * 0.12, 0, 6.3); ctx.fill();
+        ctx.restore();
+      },
+    });
+  </script>
+</body>
+</html>
